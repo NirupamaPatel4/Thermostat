@@ -1,0 +1,22 @@
+# Configuration file for Sidekiq.
+# Options here can still be overridden by cmd line args.
+# Sidekiq will run this file through ERB when reading it so you can
+# even put in dynamic logic
+---
+
+:queues:
+  - [default,  5]
+
+#:verbose: false
+
+# Set timeout to 8 on Heroku, longer if you manage your own systems.
+#:timeout: 30
+
+#:concurrency: 10
+#s
+# you can override concurrency based on environment
+#production:
+#  :concurrency: 25
+#
+#staging:
+#  :concurrency: 5

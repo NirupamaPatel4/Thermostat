@@ -1,0 +1,1042 @@
+  [1m[35m (7.5ms)[0m  [1m[35mSET  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (24.3ms)[0m  [1m[35mCREATE DATABASE `test_thermostat1` DEFAULT CHARACTER SET `utf8`[0m
+  [1m[35m (0.6ms)[0m  [1m[35mSET  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (146.4ms)[0m  [1m[35mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL PRIMARY KEY)[0m
+  [1m[35m (43.2ms)[0m  [1m[35mCREATE TABLE `ar_internal_metadata` (`key` varchar(255) NOT NULL PRIMARY KEY, `value` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL)[0m
+  [1m[35m (3.9ms)[0m  [1m[34mSELECT GET_LOCK('3127420890237692160', 0)[0m
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Migrating to CreateLocations (20181224190531)
+  [1m[35m (47.0ms)[0m  [1m[35mCREATE TABLE `locations` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `address` text, `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL)[0m
+  [1m[35m (1.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::SchemaMigration Create (2.7ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20181224190531')[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateThermostats (20181224190807)
+  [1m[35m (56.9ms)[0m  [1m[35mCREATE TABLE `thermostats` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `household_token` text, `location_id` bigint, `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL,  INDEX `index_thermostats_on_location_id`  (`location_id`), CONSTRAINT `fk_rails_050e604641`
+FOREIGN KEY (`location_id`)
+  REFERENCES `locations` (`id`)
+)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20181224190807')[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateReadings (20181224190808)
+  [1m[35m (36.6ms)[0m  [1m[35mCREATE TABLE `readings` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `reading_id` varchar(255), `number` int, `temperature` float(24), `humidity` float(24), `battery_charge` float(24), `thermostat_id` bigint, `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL,  INDEX `index_readings_on_thermostat_id`  (`thermostat_id`), CONSTRAINT `fk_rails_7c067bcadb`
+FOREIGN KEY (`thermostat_id`)
+  REFERENCES `thermostats` (`id`)
+)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20181224190808')[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddThermostats (20181224190809)
+  [1m[35m (1.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mLocation Create (1.1ms)[0m  [1m[32mINSERT INTO `locations` (`address`, `created_at`, `updated_at`) VALUES ('location_1', '2019-01-06 08:33:03', '2019-01-06 08:33:03')[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mLocation Create (0.4ms)[0m  [1m[32mINSERT INTO `locations` (`address`, `created_at`, `updated_at`) VALUES ('location_2', '2019-01-06 08:33:03', '2019-01-06 08:33:03')[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mLocation Create (1.1ms)[0m  [1m[32mINSERT INTO `locations` (`address`, `created_at`, `updated_at`) VALUES ('location_3', '2019-01-06 08:33:03', '2019-01-06 08:33:03')[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mLocation Load (1.1ms)[0m  [1m[34mSELECT `locations`.* FROM `locations`[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mThermostat Create (1.3ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('7340c8051f4da738ac570cddec5ab1cb', 1, '2019-01-06 08:33:03', '2019-01-06 08:33:03')[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mThermostat Create (0.3ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('e1fc3fc2ebc26b4235b46bd15c072d52', 1, '2019-01-06 08:33:03', '2019-01-06 08:33:03')[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mThermostat Create (1.0ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('eb259bc9072bc5e54fa2e9ad0964aa45', 1, '2019-01-06 08:33:03', '2019-01-06 08:33:03')[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mThermostat Create (0.3ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('6cf5def0b668dc274955738a4a308ab0', 2, '2019-01-06 08:33:03', '2019-01-06 08:33:03')[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mThermostat Create (0.3ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('4e805fc63390942225734decc6ecdce3', 2, '2019-01-06 08:33:03', '2019-01-06 08:33:03')[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mThermostat Create (0.4ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('068b7a0cf2ecfcb1a1182546dcc26d14', 2, '2019-01-06 08:33:03', '2019-01-06 08:33:03')[0m
+  [1m[35m (3.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mThermostat Create (0.8ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('e5e277acc46c93e786588545c73a46aa', 3, '2019-01-06 08:33:03', '2019-01-06 08:33:03')[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mThermostat Create (0.6ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('71055f88923668c26cbebaa63cb2e973', 3, '2019-01-06 08:33:03', '2019-01-06 08:33:03')[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mThermostat Create (1.7ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('d57233082ba9de9061f1c9dfcf0b9f41', 3, '2019-01-06 08:33:03', '2019-01-06 08:33:03')[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.5ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20181224190809')[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (1.2ms)[0m  [1m[34mSELECT  `ar_internal_metadata`.* FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.3ms)[0m  [1m[32mINSERT INTO `ar_internal_metadata` (`key`, `value`, `created_at`, `updated_at`) VALUES ('environment', 'test', '2019-01-06 08:33:03', '2019-01-06 08:33:03')[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (1.2ms)[0m  [1m[34mSELECT RELEASE_LOCK('3127420890237692160')[0m
+  [1m[35m (1.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[35m (2.3ms)[0m  [1m[35mSET  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (1.3ms)[0m  [1m[35mCREATE DATABASE `test_thermostat1` DEFAULT CHARACTER SET `utf8`[0m
+  [1m[35m (0.4ms)[0m  [1m[35mSET  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (81.1ms)[0m  [1m[35mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL PRIMARY KEY)[0m
+  [1m[35m (29.5ms)[0m  [1m[35mCREATE TABLE `ar_internal_metadata` (`key` varchar(255) NOT NULL PRIMARY KEY, `value` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT GET_LOCK('3127420890237692160', 0)[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Migrating to CreateLocations (20181224190531)
+  [1m[35m (12.6ms)[0m  [1m[35mCREATE TABLE `locations` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `address` text, `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20181224190531')[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateThermostats (20181224190807)
+  [1m[35m (26.5ms)[0m  [1m[35mCREATE TABLE `thermostats` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `household_token` text, `location_id` bigint, `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL,  INDEX `index_thermostats_on_location_id`  (`location_id`), CONSTRAINT `fk_rails_050e604641`
+FOREIGN KEY (`location_id`)
+  REFERENCES `locations` (`id`)
+)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20181224190807')[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateReadings (20181224190808)
+  [1m[35m (33.0ms)[0m  [1m[35mCREATE TABLE `readings` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `reading_id` varchar(255), `number` int, `temperature` float(24), `humidity` float(24), `battery_charge` float(24), `thermostat_id` bigint, `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL,  INDEX `index_readings_on_thermostat_id`  (`thermostat_id`), CONSTRAINT `fk_rails_7c067bcadb`
+FOREIGN KEY (`thermostat_id`)
+  REFERENCES `thermostats` (`id`)
+)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20181224190808')[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddThermostats (20181224190809)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mLocation Create (0.4ms)[0m  [1m[32mINSERT INTO `locations` (`address`, `created_at`, `updated_at`) VALUES ('location_1', '2019-01-06 08:35:45', '2019-01-06 08:35:45')[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mLocation Create (0.3ms)[0m  [1m[32mINSERT INTO `locations` (`address`, `created_at`, `updated_at`) VALUES ('location_2', '2019-01-06 08:35:45', '2019-01-06 08:35:45')[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mLocation Create (0.5ms)[0m  [1m[32mINSERT INTO `locations` (`address`, `created_at`, `updated_at`) VALUES ('location_3', '2019-01-06 08:35:45', '2019-01-06 08:35:45')[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mLocation Load (0.5ms)[0m  [1m[34mSELECT `locations`.* FROM `locations`[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mThermostat Create (0.6ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('1eeb2e160932c072ec4e5117593d3614', 1, '2019-01-06 08:35:45', '2019-01-06 08:35:45')[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mThermostat Create (0.6ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('a4b0d0231940ae3fcbcaa09156470e92', 1, '2019-01-06 08:35:45', '2019-01-06 08:35:45')[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.5ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mThermostat Create (0.6ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('1aa09405028041cd6f78122eccfb20ca', 1, '2019-01-06 08:35:45', '2019-01-06 08:35:45')[0m
+  [1m[35m (1.8ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.5ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mThermostat Create (0.5ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('5c1f83b41e6244aac8977fc0daedda84', 2, '2019-01-06 08:35:45', '2019-01-06 08:35:45')[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mThermostat Create (0.3ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('b9919a876e534e340a1afacf946ea23e', 2, '2019-01-06 08:35:45', '2019-01-06 08:35:45')[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mThermostat Create (0.3ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('5eccb6659944b744aaf02b52ec112727', 2, '2019-01-06 08:35:45', '2019-01-06 08:35:45')[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mThermostat Create (0.3ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('4404c5faff9f1cc49c7cc6111adee937', 3, '2019-01-06 08:35:45', '2019-01-06 08:35:45')[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mThermostat Create (0.3ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('de7b8d610461b06748dc282ac2990e3c', 3, '2019-01-06 08:35:45', '2019-01-06 08:35:45')[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mThermostat Create (0.3ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('6abe817a3fba237b4e486c771f457f12', 3, '2019-01-06 08:35:45', '2019-01-06 08:35:45')[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20181224190809')[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT  `ar_internal_metadata`.* FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.3ms)[0m  [1m[32mINSERT INTO `ar_internal_metadata` (`key`, `value`, `created_at`, `updated_at`) VALUES ('environment', 'test', '2019-01-06 08:35:45', '2019-01-06 08:35:45')[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT RELEASE_LOCK('3127420890237692160')[0m
+  [1m[35m (1.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[35m (0.4ms)[0m  [1m[35mSET  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (2.6ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+Processing by Api::ReadingsController#create as HTML
+  Parameters: {"battery_charge"=>"78", "humidity"=>"2.4"}
+  [1m[36mThermostat Load (0.5ms)[0m  [1m[34mSELECT  `thermostats`.* FROM `thermostats` WHERE `thermostats`.`household_token` = 'f0214a1908032df8c6f2de5a37e7678b' LIMIT 1[0m
+Filter chain halted as :authenticate_token! rendered or redirected
+Completed 401 Unauthorized in 26ms (Views: 0.3ms | ActiveRecord: 13.6ms)
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mLocation Create (0.3ms)[0m  [1m[32mINSERT INTO `locations` (`address`, `created_at`, `updated_at`) VALUES ('MyLocation', '2019-01-06 08:37:01', '2019-01-06 08:37:01')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (4.7ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Create (0.3ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('2b89b90260120bc25650a723755f1edb', 4, '2019-01-06 08:37:01', '2019-01-06 08:37:01')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by Api::ReadingsController#create as HTML
+  Parameters: {"battery_charge"=>"78", "temperature"=>"98"}
+  [1m[36mThermostat Load (0.5ms)[0m  [1m[34mSELECT  `thermostats`.* FROM `thermostats` WHERE `thermostats`.`household_token` = '2b89b90260120bc25650a723755f1edb' LIMIT 1[0m
+  [1m[36mThermostat Load (0.5ms)[0m  [1m[34mSELECT  `thermostats`.* FROM `thermostats` WHERE `thermostats`.`household_token` = '2b89b90260120bc25650a723755f1edb' LIMIT 1[0m
+Completed 400 Bad Request in 4ms (Views: 0.2ms | ActiveRecord: 1.0ms)
+  [1m[35m (1.4ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mLocation Create (0.3ms)[0m  [1m[32mINSERT INTO `locations` (`address`, `created_at`, `updated_at`) VALUES ('MyLocation', '2019-01-06 08:37:01', '2019-01-06 08:37:01')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Create (0.3ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('e91e148919351d70ab3d9b9c33804649', 5, '2019-01-06 08:37:01', '2019-01-06 08:37:01')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by Api::ReadingsController#create as HTML
+  Parameters: {"battery_charge"=>"78", "humidity"=>"2.4"}
+  [1m[36mThermostat Load (0.4ms)[0m  [1m[34mSELECT  `thermostats`.* FROM `thermostats` WHERE `thermostats`.`household_token` = 'e91e148919351d70ab3d9b9c33804649' LIMIT 1[0m
+  [1m[36mThermostat Load (0.3ms)[0m  [1m[34mSELECT  `thermostats`.* FROM `thermostats` WHERE `thermostats`.`household_token` = 'e91e148919351d70ab3d9b9c33804649' LIMIT 1[0m
+Completed 400 Bad Request in 2ms (Views: 0.1ms | ActiveRecord: 0.7ms)
+  [1m[35m (0.5ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mLocation Create (1.2ms)[0m  [1m[32mINSERT INTO `locations` (`address`, `created_at`, `updated_at`) VALUES ('MyLocation', '2019-01-06 08:37:01', '2019-01-06 08:37:01')[0m
+  [1m[35m (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Create (0.4ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('8a032399ad6150da6731bbc91ebda973', 6, '2019-01-06 08:37:01', '2019-01-06 08:37:01')[0m
+  [1m[35m (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by Api::ReadingsController#create as HTML
+  Parameters: {"humidity"=>"2.4", "temperature"=>"98"}
+  [1m[36mThermostat Load (0.8ms)[0m  [1m[34mSELECT  `thermostats`.* FROM `thermostats` WHERE `thermostats`.`household_token` = '8a032399ad6150da6731bbc91ebda973' LIMIT 1[0m
+  [1m[36mThermostat Load (0.3ms)[0m  [1m[34mSELECT  `thermostats`.* FROM `thermostats` WHERE `thermostats`.`household_token` = '8a032399ad6150da6731bbc91ebda973' LIMIT 1[0m
+Completed 400 Bad Request in 2ms (Views: 0.1ms | ActiveRecord: 1.1ms)
+  [1m[35m (0.5ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mLocation Create (0.4ms)[0m  [1m[32mINSERT INTO `locations` (`address`, `created_at`, `updated_at`) VALUES ('MyLocation', '2019-01-06 08:37:01', '2019-01-06 08:37:01')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Create (0.3ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('947a45f1ceec558f177c437c4a315fdb', 7, '2019-01-06 08:37:01', '2019-01-06 08:37:01')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mReading Create (1.1ms)[0m  [1m[32mINSERT INTO `readings` (`reading_id`, `number`, `temperature`, `humidity`, `battery_charge`, `thermostat_id`, `created_at`, `updated_at`) VALUES ('5b1f20d3-9195-4680-af0d-b967de9a1a3d', 1, 98.0, 1.5, 75.0, 13, '2019-01-06 08:37:01', '2019-01-06 08:37:01')[0m
+  [1m[35m (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by Api::ReadingsController#create as HTML
+  Parameters: {"battery_charge"=>"75.0", "humidity"=>"1.5", "temperature"=>"98.0"}
+  [1m[36mThermostat Load (2.5ms)[0m  [1m[34mSELECT  `thermostats`.* FROM `thermostats` WHERE `thermostats`.`household_token` = '947a45f1ceec558f177c437c4a315fdb' LIMIT 1[0m
+  [1m[36mThermostat Load (0.4ms)[0m  [1m[34mSELECT  `thermostats`.* FROM `thermostats` WHERE `thermostats`.`household_token` = '947a45f1ceec558f177c437c4a315fdb' LIMIT 1[0m
+Completed 200 OK in 5ms (Views: 0.4ms | ActiveRecord: 2.9ms)
+  [1m[35m (0.7ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mLocation Create (0.3ms)[0m  [1m[32mINSERT INTO `locations` (`address`, `created_at`, `updated_at`) VALUES ('MyLocation', '2019-01-06 08:37:01', '2019-01-06 08:37:01')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Create (0.3ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('a6ceab9e43b30bdb12db57b6ceb2d1a9', 8, '2019-01-06 08:37:01', '2019-01-06 08:37:01')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mReading Create (0.3ms)[0m  [1m[32mINSERT INTO `readings` (`reading_id`, `number`, `temperature`, `humidity`, `battery_charge`, `thermostat_id`, `created_at`, `updated_at`) VALUES ('89af4b57-9636-4ecd-9d6d-5165c202982b', 1, 98.0, 1.5, 75.0, 14, '2019-01-06 08:37:01', '2019-01-06 08:37:01')[0m
+  [1m[35m (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Create (0.3ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('aba80606325e6d9b45c4ed4b20077b96', 8, '2019-01-06 08:37:01', '2019-01-06 08:37:01')[0m
+  [1m[35m (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by Api::ReadingsController#show as HTML
+  Parameters: {"id"=>"89af4b57-9636-4ecd-9d6d-5165c202982b"}
+  [1m[36mThermostat Load (0.4ms)[0m  [1m[34mSELECT  `thermostats`.* FROM `thermostats` WHERE `thermostats`.`household_token` = 'aba80606325e6d9b45c4ed4b20077b96' LIMIT 1[0m
+  [1m[36mThermostat Load (0.4ms)[0m  [1m[34mSELECT  `thermostats`.* FROM `thermostats` WHERE `thermostats`.`household_token` = 'aba80606325e6d9b45c4ed4b20077b96' LIMIT 1[0m
+Completed 401 Unauthorized in 3ms (Views: 0.2ms | ActiveRecord: 0.8ms)
+  [1m[35m (0.5ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mLocation Create (0.3ms)[0m  [1m[32mINSERT INTO `locations` (`address`, `created_at`, `updated_at`) VALUES ('MyLocation', '2019-01-06 08:37:01', '2019-01-06 08:37:01')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Create (0.3ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('7471d35bba259046c49829ceff8afa0a', 9, '2019-01-06 08:37:01', '2019-01-06 08:37:01')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mReading Create (0.3ms)[0m  [1m[32mINSERT INTO `readings` (`reading_id`, `number`, `temperature`, `humidity`, `battery_charge`, `thermostat_id`, `created_at`, `updated_at`) VALUES ('356ba414-f69a-44d3-b88e-328a3d691e9e', 1, 98.0, 1.5, 75.0, 16, '2019-01-06 08:37:01', '2019-01-06 08:37:01')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by Api::ReadingsController#show as HTML
+  Parameters: {"id"=>"356ba414-f69a-44d3-b88e-328a3d691e9e"}
+  [1m[36mThermostat Load (0.4ms)[0m  [1m[34mSELECT  `thermostats`.* FROM `thermostats` WHERE `thermostats`.`household_token` = '7471d35bba259046c49829ceff8afa0a' LIMIT 1[0m
+  [1m[36mThermostat Load (0.3ms)[0m  [1m[34mSELECT  `thermostats`.* FROM `thermostats` WHERE `thermostats`.`household_token` = '7471d35bba259046c49829ceff8afa0a' LIMIT 1[0m
+Completed 200 OK in 2ms (Views: 0.4ms | ActiveRecord: 0.7ms)
+  [1m[35m (0.5ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.8ms)[0m  [1m[35mSET  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mLocation Create (0.6ms)[0m  [1m[32mINSERT INTO `locations` (`address`, `created_at`, `updated_at`) VALUES ('MyLocation', '2019-01-06 08:40:33', '2019-01-06 08:40:33')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.9ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Create (1.0ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('3aa97e5831f8c1cb00ea75600daa9a16', 10, '2019-01-06 08:40:33', '2019-01-06 08:40:33')[0m
+  [1m[35m (0.5ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mReading Create (0.4ms)[0m  [1m[32mINSERT INTO `readings` (`reading_id`, `number`, `temperature`, `humidity`, `battery_charge`, `thermostat_id`, `created_at`, `updated_at`) VALUES ('44c64fc1-dc66-4535-b64b-0de35facf883', 1, 98.0, 1.5, 75.0, 17, '2019-01-06 08:40:33', '2019-01-06 08:40:33')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Create (0.4ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('0e607d6970384ab2c5181fdce96b3d84', 10, '2019-01-06 08:40:33', '2019-01-06 08:40:33')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by Api::ReadingsController#show as HTML
+  Parameters: {"id"=>"44c64fc1-dc66-4535-b64b-0de35facf883"}
+  [1m[36mThermostat Load (0.5ms)[0m  [1m[34mSELECT  `thermostats`.* FROM `thermostats` WHERE `thermostats`.`household_token` = '0e607d6970384ab2c5181fdce96b3d84' LIMIT 1[0m
+  [1m[36mThermostat Load (0.4ms)[0m  [1m[34mSELECT  `thermostats`.* FROM `thermostats` WHERE `thermostats`.`household_token` = '0e607d6970384ab2c5181fdce96b3d84' LIMIT 1[0m
+Completed 401 Unauthorized in 5ms (Views: 0.3ms | ActiveRecord: 0.9ms)
+  [1m[35m (0.7ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mLocation Create (0.4ms)[0m  [1m[32mINSERT INTO `locations` (`address`, `created_at`, `updated_at`) VALUES ('MyLocation', '2019-01-06 08:40:33', '2019-01-06 08:40:33')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Create (0.3ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('0dccacfecc837cdbb337dd040257d79c', 11, '2019-01-06 08:40:33', '2019-01-06 08:40:33')[0m
+  [1m[35m (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mReading Create (1.9ms)[0m  [1m[32mINSERT INTO `readings` (`reading_id`, `number`, `temperature`, `humidity`, `battery_charge`, `thermostat_id`, `created_at`, `updated_at`) VALUES ('b5b58bcf-1fb6-4dab-bc60-ca7d956d429b', 1, 98.0, 1.5, 75.0, 19, '2019-01-06 08:40:33', '2019-01-06 08:40:33')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by Api::ReadingsController#show as HTML
+  Parameters: {"id"=>"b5b58bcf-1fb6-4dab-bc60-ca7d956d429b"}
+  [1m[36mThermostat Load (0.9ms)[0m  [1m[34mSELECT  `thermostats`.* FROM `thermostats` WHERE `thermostats`.`household_token` = '0dccacfecc837cdbb337dd040257d79c' LIMIT 1[0m
+  [1m[36mThermostat Load (0.4ms)[0m  [1m[34mSELECT  `thermostats`.* FROM `thermostats` WHERE `thermostats`.`household_token` = '0dccacfecc837cdbb337dd040257d79c' LIMIT 1[0m
+Completed 200 OK in 3ms (Views: 0.5ms | ActiveRecord: 1.3ms)
+  [1m[35m (0.6ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mLocation Create (0.3ms)[0m  [1m[32mINSERT INTO `locations` (`address`, `created_at`, `updated_at`) VALUES ('MyLocation', '2019-01-06 08:40:33', '2019-01-06 08:40:33')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Create (0.3ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('6c69121dd0e095108db3adbe57fc5f23', 12, '2019-01-06 08:40:33', '2019-01-06 08:40:33')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mReading Create (0.3ms)[0m  [1m[32mINSERT INTO `readings` (`reading_id`, `number`, `temperature`, `humidity`, `battery_charge`, `thermostat_id`, `created_at`, `updated_at`) VALUES ('0759e297-40f4-43a3-a9eb-ade23d27213c', 1, 98.0, 1.5, 75.0, 20, '2019-01-06 08:40:33', '2019-01-06 08:40:33')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by Api::ReadingsController#create as HTML
+  Parameters: {"battery_charge"=>"75.0", "humidity"=>"1.5", "temperature"=>"98.0"}
+  [1m[36mThermostat Load (0.4ms)[0m  [1m[34mSELECT  `thermostats`.* FROM `thermostats` WHERE `thermostats`.`household_token` = '6c69121dd0e095108db3adbe57fc5f23' LIMIT 1[0m
+  [1m[36mThermostat Load (0.3ms)[0m  [1m[34mSELECT  `thermostats`.* FROM `thermostats` WHERE `thermostats`.`household_token` = '6c69121dd0e095108db3adbe57fc5f23' LIMIT 1[0m
+Completed 200 OK in 2ms (Views: 0.4ms | ActiveRecord: 0.7ms)
+  [1m[35m (0.7ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+Processing by Api::ReadingsController#create as HTML
+  Parameters: {"battery_charge"=>"78", "humidity"=>"2.4"}
+  [1m[36mThermostat Load (1.2ms)[0m  [1m[34mSELECT  `thermostats`.* FROM `thermostats` WHERE `thermostats`.`household_token` = '57f12f848a62c2212a60654725a237ac' LIMIT 1[0m
+Filter chain halted as :authenticate_token! rendered or redirected
+Completed 401 Unauthorized in 2ms (Views: 0.2ms | ActiveRecord: 1.2ms)
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mLocation Create (0.3ms)[0m  [1m[32mINSERT INTO `locations` (`address`, `created_at`, `updated_at`) VALUES ('MyLocation', '2019-01-06 08:40:33', '2019-01-06 08:40:33')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Create (0.6ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('b3850fc7825073cc69f3f142644b2341', 13, '2019-01-06 08:40:33', '2019-01-06 08:40:33')[0m
+  [1m[35m (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by Api::ReadingsController#create as HTML
+  Parameters: {"humidity"=>"2.4", "temperature"=>"98"}
+  [1m[36mThermostat Load (0.5ms)[0m  [1m[34mSELECT  `thermostats`.* FROM `thermostats` WHERE `thermostats`.`household_token` = 'b3850fc7825073cc69f3f142644b2341' LIMIT 1[0m
+  [1m[36mThermostat Load (0.3ms)[0m  [1m[34mSELECT  `thermostats`.* FROM `thermostats` WHERE `thermostats`.`household_token` = 'b3850fc7825073cc69f3f142644b2341' LIMIT 1[0m
+Completed 400 Bad Request in 2ms (Views: 0.1ms | ActiveRecord: 0.7ms)
+  [1m[35m (0.5ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mLocation Create (0.4ms)[0m  [1m[32mINSERT INTO `locations` (`address`, `created_at`, `updated_at`) VALUES ('MyLocation', '2019-01-06 08:40:33', '2019-01-06 08:40:33')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Create (0.2ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('52b1ea9e3c8918b94486e8f7a63f3c0d', 14, '2019-01-06 08:40:33', '2019-01-06 08:40:33')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by Api::ReadingsController#create as HTML
+  Parameters: {"battery_charge"=>"78", "humidity"=>"2.4"}
+  [1m[36mThermostat Load (1.1ms)[0m  [1m[34mSELECT  `thermostats`.* FROM `thermostats` WHERE `thermostats`.`household_token` = '52b1ea9e3c8918b94486e8f7a63f3c0d' LIMIT 1[0m
+  [1m[36mThermostat Load (0.4ms)[0m  [1m[34mSELECT  `thermostats`.* FROM `thermostats` WHERE `thermostats`.`household_token` = '52b1ea9e3c8918b94486e8f7a63f3c0d' LIMIT 1[0m
+Completed 400 Bad Request in 3ms (Views: 0.1ms | ActiveRecord: 1.4ms)
+  [1m[35m (0.6ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mLocation Create (0.9ms)[0m  [1m[32mINSERT INTO `locations` (`address`, `created_at`, `updated_at`) VALUES ('MyLocation', '2019-01-06 08:40:33', '2019-01-06 08:40:33')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Create (0.3ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('644ada7666800513ab084357f4b95461', 15, '2019-01-06 08:40:33', '2019-01-06 08:40:33')[0m
+  [1m[35m (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by Api::ReadingsController#create as HTML
+  Parameters: {"battery_charge"=>"78", "temperature"=>"98"}
+  [1m[36mThermostat Load (1.2ms)[0m  [1m[34mSELECT  `thermostats`.* FROM `thermostats` WHERE `thermostats`.`household_token` = '644ada7666800513ab084357f4b95461' LIMIT 1[0m
+  [1m[36mThermostat Load (0.4ms)[0m  [1m[34mSELECT  `thermostats`.* FROM `thermostats` WHERE `thermostats`.`household_token` = '644ada7666800513ab084357f4b95461' LIMIT 1[0m
+Completed 400 Bad Request in 3ms (Views: 0.1ms | ActiveRecord: 1.5ms)
+  [1m[35m (0.6ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.4ms)[0m  [1m[35mSET  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mLocation Create (0.4ms)[0m  [1m[32mINSERT INTO `locations` (`address`, `created_at`, `updated_at`) VALUES ('MyLocation', '2019-01-06 08:40:35', '2019-01-06 08:40:35')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Create (0.3ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('93400d0cb112fb5764984ce007495b18', 16, '2019-01-06 08:40:35', '2019-01-06 08:40:35')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.6ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mReading Create (0.4ms)[0m  [1m[32mINSERT INTO `readings` (`reading_id`, `number`, `temperature`, `humidity`, `battery_charge`, `thermostat_id`, `created_at`, `updated_at`) VALUES ('4578308c-4363-40f5-8b81-3e7d5cc3b821', 2, 98.0, 1.5, 75.0, 24, '2019-01-06 08:40:35', '2019-01-06 08:40:35')[0m
+  [1m[35m (0.6ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.6ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mReading Create (0.9ms)[0m  [1m[32mINSERT INTO `readings` (`reading_id`, `number`, `temperature`, `humidity`, `battery_charge`, `thermostat_id`, `created_at`, `updated_at`) VALUES ('927a7800-4103-43d8-902f-0d2fa9682139', 2, 98.0, 1.5, 75.0, 24, '2019-01-06 08:40:35', '2019-01-06 08:40:35')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mReading Create (0.2ms)[0m  [1m[32mINSERT INTO `readings` (`reading_id`, `number`, `temperature`, `humidity`, `battery_charge`, `thermostat_id`, `created_at`, `updated_at`) VALUES ('64fb7b36-98cb-483f-b292-ad0cff7e713a', 3, 98.0, 1.5, 75.0, 24, '2019-01-06 08:40:35', '2019-01-06 08:40:35')[0m
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mReading Create (0.4ms)[0m  [1m[32mINSERT INTO `readings` (`reading_id`, `number`, `temperature`, `humidity`, `battery_charge`, `thermostat_id`, `created_at`, `updated_at`) VALUES ('885cbb1c-20ce-4b9d-a8a1-e980f7512b1c', 4, 98.0, 1.5, 75.0, 24, '2019-01-06 08:40:36', '2019-01-06 08:40:36')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (10.1ms)[0m  [1m[34mSELECT AVG(`readings`.`temperature`) FROM `readings` WHERE `readings`.`thermostat_id` = 24[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT MIN(`readings`.`temperature`) FROM `readings` WHERE `readings`.`thermostat_id` = 24[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT MAX(`readings`.`temperature`) FROM `readings` WHERE `readings`.`thermostat_id` = 24[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT AVG(`readings`.`humidity`) FROM `readings` WHERE `readings`.`thermostat_id` = 24[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT MIN(`readings`.`humidity`) FROM `readings` WHERE `readings`.`thermostat_id` = 24[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT MAX(`readings`.`humidity`) FROM `readings` WHERE `readings`.`thermostat_id` = 24[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT AVG(`readings`.`battery_charge`) FROM `readings` WHERE `readings`.`thermostat_id` = 24[0m
+  [1m[35m (5.8ms)[0m  [1m[34mSELECT MIN(`readings`.`battery_charge`) FROM `readings` WHERE `readings`.`thermostat_id` = 24[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT MAX(`readings`.`battery_charge`) FROM `readings` WHERE `readings`.`thermostat_id` = 24[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT AVG(`readings`.`temperature`) FROM `readings` WHERE `readings`.`thermostat_id` = 24[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT MAX(`readings`.`temperature`) FROM `readings` WHERE `readings`.`thermostat_id` = 24[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT MIN(`readings`.`temperature`) FROM `readings` WHERE `readings`.`thermostat_id` = 24[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT AVG(`readings`.`humidity`) FROM `readings` WHERE `readings`.`thermostat_id` = 24[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT MAX(`readings`.`humidity`) FROM `readings` WHERE `readings`.`thermostat_id` = 24[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT MIN(`readings`.`humidity`) FROM `readings` WHERE `readings`.`thermostat_id` = 24[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT AVG(`readings`.`battery_charge`) FROM `readings` WHERE `readings`.`thermostat_id` = 24[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT MAX(`readings`.`battery_charge`) FROM `readings` WHERE `readings`.`thermostat_id` = 24[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT MIN(`readings`.`battery_charge`) FROM `readings` WHERE `readings`.`thermostat_id` = 24[0m
+  [1m[35m (5.5ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mLocation Create (1.0ms)[0m  [1m[32mINSERT INTO `locations` (`address`, `created_at`, `updated_at`) VALUES ('MyLocation', '2019-01-06 08:40:36', '2019-01-06 08:40:36')[0m
+  [1m[35m (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Create (0.3ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('fd874acbbddf1c08da03dc32882565bc', 17, '2019-01-06 08:40:36', '2019-01-06 08:40:36')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mReading Create (0.3ms)[0m  [1m[32mINSERT INTO `readings` (`reading_id`, `number`, `temperature`, `humidity`, `battery_charge`, `thermostat_id`, `created_at`, `updated_at`) VALUES ('2284a028-12af-4b48-809b-aa2cf1c2b4f5', 2, 98.0, 1.5, 75.0, 25, '2019-01-06 08:40:36', '2019-01-06 08:40:36')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mReading Create (0.3ms)[0m  [1m[32mINSERT INTO `readings` (`reading_id`, `number`, `temperature`, `humidity`, `battery_charge`, `thermostat_id`, `created_at`, `updated_at`) VALUES ('22d8fdd9-c1aa-49b5-9974-4b8fc25586f4', 2, 98.0, 1.5, 75.0, 25, '2019-01-06 08:40:36', '2019-01-06 08:40:36')[0m
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mReading Create (0.3ms)[0m  [1m[32mINSERT INTO `readings` (`reading_id`, `number`, `temperature`, `humidity`, `battery_charge`, `thermostat_id`, `created_at`, `updated_at`) VALUES ('9c4e03c8-f35d-4fbc-be5f-787b5171ae64', 3, 98.0, 1.5, 75.0, 25, '2019-01-06 08:40:36', '2019-01-06 08:40:36')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mThermostat Load (7.0ms)[0m  [1m[34mSELECT `thermostats`.* FROM `thermostats` WHERE `thermostats`.`location_id` = 17[0m
+  [1m[35m (1.8ms)[0m  [1m[34mSELECT AVG(`readings`.`temperature`) FROM `readings` WHERE `readings`.`thermostat_id` = 25[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT MIN(`readings`.`temperature`) FROM `readings` WHERE `readings`.`thermostat_id` = 25[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT MAX(`readings`.`temperature`) FROM `readings` WHERE `readings`.`thermostat_id` = 25[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT AVG(`readings`.`humidity`) FROM `readings` WHERE `readings`.`thermostat_id` = 25[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT MIN(`readings`.`humidity`) FROM `readings` WHERE `readings`.`thermostat_id` = 25[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT MAX(`readings`.`humidity`) FROM `readings` WHERE `readings`.`thermostat_id` = 25[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT AVG(`readings`.`battery_charge`) FROM `readings` WHERE `readings`.`thermostat_id` = 25[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT MIN(`readings`.`battery_charge`) FROM `readings` WHERE `readings`.`thermostat_id` = 25[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT MAX(`readings`.`battery_charge`) FROM `readings` WHERE `readings`.`thermostat_id` = 25[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT AVG(`readings`.`temperature`) FROM `readings` WHERE `readings`.`thermostat_id` = 25[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT MIN(`readings`.`temperature`) FROM `readings` WHERE `readings`.`thermostat_id` = 25[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT MAX(`readings`.`temperature`) FROM `readings` WHERE `readings`.`thermostat_id` = 25[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT AVG(`readings`.`humidity`) FROM `readings` WHERE `readings`.`thermostat_id` = 25[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT MIN(`readings`.`humidity`) FROM `readings` WHERE `readings`.`thermostat_id` = 25[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT MAX(`readings`.`humidity`) FROM `readings` WHERE `readings`.`thermostat_id` = 25[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT AVG(`readings`.`battery_charge`) FROM `readings` WHERE `readings`.`thermostat_id` = 25[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT MIN(`readings`.`battery_charge`) FROM `readings` WHERE `readings`.`thermostat_id` = 25[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT MAX(`readings`.`battery_charge`) FROM `readings` WHERE `readings`.`thermostat_id` = 25[0m
+  [1m[35m (5.8ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.4ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mLocation Create (0.6ms)[0m  [1m[32mINSERT INTO `locations` (`address`, `created_at`, `updated_at`) VALUES ('MyLocation', '2019-01-06 08:40:36', '2019-01-06 08:40:36')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Create (0.4ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('79f5bc7b52b7456de7fe8bbca7050c94', 18, '2019-01-06 08:40:36', '2019-01-06 08:40:36')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mReading Create (0.4ms)[0m  [1m[32mINSERT INTO `readings` (`reading_id`, `number`, `temperature`, `humidity`, `battery_charge`, `thermostat_id`, `created_at`, `updated_at`) VALUES ('727054de-3674-481f-bf7d-4185516b120c', 1, 98.0, 1.5, 75.0, 26, '2019-01-06 08:40:36', '2019-01-06 08:40:36')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mReading Load (1.1ms)[0m  [1m[34mSELECT  `readings`.* FROM `readings` WHERE `readings`.`reading_id` = '727054de-3674-481f-bf7d-4185516b120c' ORDER BY `readings`.`id` DESC LIMIT 1[0m
+  [1m[35m (5.0ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mLocation Create (0.3ms)[0m  [1m[32mINSERT INTO `locations` (`address`, `created_at`, `updated_at`) VALUES ('MyLocation', '2019-01-06 08:40:36', '2019-01-06 08:40:36')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Create (0.3ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('ba63091c365517010414bb596657b1e9', 19, '2019-01-06 08:40:36', '2019-01-06 08:40:36')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (5.7ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.4ms)[0m  [1m[35mSET  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mLocation Create (0.3ms)[0m  [1m[32mINSERT INTO `locations` (`address`, `created_at`, `updated_at`) VALUES ('MyLocation', '2019-01-06 08:40:42', '2019-01-06 08:40:42')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Create (0.4ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('c180920b1cc0df4b6e98ed24d7daef38', 20, '2019-01-06 08:40:42', '2019-01-06 08:40:42')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mReading Load (1.0ms)[0m  [1m[34mSELECT  `readings`.* FROM `readings` WHERE `readings`.`reading_id` = '2089f725-3cb0-4d3d-bc51-5cf504db0e5b' LIMIT 1[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Load (0.5ms)[0m  [1m[34mSELECT  `thermostats`.* FROM `thermostats` WHERE `thermostats`.`id` = 28 LIMIT 1[0m
+  [1m[36mReading Create (0.4ms)[0m  [1m[32mINSERT INTO `readings` (`reading_id`, `temperature`, `humidity`, `battery_charge`, `thermostat_id`, `created_at`, `updated_at`) VALUES ('2089f725-3cb0-4d3d-bc51-5cf504db0e5b', 44.0, 8.2, 87.0, 28, '2019-01-06 08:40:42', '2019-01-06 08:40:42')[0m
+  [1m[35m (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mReading Load (0.4ms)[0m  [1m[34mSELECT  `readings`.* FROM `readings` WHERE `readings`.`reading_id` = '2089f725-3cb0-4d3d-bc51-5cf504db0e5b' LIMIT 1[0m
+  [1m[35m (1.9ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mReading Load (0.4ms)[0m  [1m[34mSELECT  `readings`.* FROM `readings` WHERE `readings`.`reading_id` = '1cc74769-ca35-4565-a448-6a03550fe255' LIMIT 1[0m
+  [1m[36mReading Load (0.2ms)[0m  [1m[34mSELECT  `readings`.* FROM `readings` WHERE `readings`.`reading_id` = '1cc74769-ca35-4565-a448-6a03550fe255' LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.4ms)[0m  [1m[35mSET  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE DATABASE `test_thermostat1` DEFAULT CHARACTER SET `utf8`[0m
+  [1m[35m (3.6ms)[0m  [1m[35mSET  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (296.1ms)[0m  [1m[35mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL PRIMARY KEY)[0m
+  [1m[35m (22.0ms)[0m  [1m[35mCREATE TABLE `ar_internal_metadata` (`key` varchar(255) NOT NULL PRIMARY KEY, `value` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL)[0m
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT GET_LOCK('3127420890237692160', 0)[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Migrating to CreateLocations (20181224190531)
+  [1m[35m (12.5ms)[0m  [1m[35mCREATE TABLE `locations` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `address` text, `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20181224190531')[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateThermostats (20181224190807)
+  [1m[35m (17.0ms)[0m  [1m[35mCREATE TABLE `thermostats` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `household_token` text, `location_id` bigint, `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL,  INDEX `index_thermostats_on_location_id`  (`location_id`), CONSTRAINT `fk_rails_050e604641`
+FOREIGN KEY (`location_id`)
+  REFERENCES `locations` (`id`)
+)[0m
+  [1m[35m (1.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::SchemaMigration Create (1.4ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20181224190807')[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateReadings (20181224190808)
+  [1m[35m (16.2ms)[0m  [1m[35mCREATE TABLE `readings` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `reading_id` varchar(255), `number` int, `temperature` float(24), `humidity` float(24), `battery_charge` float(24), `thermostat_id` bigint, `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL,  INDEX `index_readings_on_thermostat_id`  (`thermostat_id`), CONSTRAINT `fk_rails_7c067bcadb`
+FOREIGN KEY (`thermostat_id`)
+  REFERENCES `thermostats` (`id`)
+)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20181224190808')[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddThermostats (20181224190809)
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mLocation Create (0.7ms)[0m  [1m[32mINSERT INTO `locations` (`address`, `created_at`, `updated_at`) VALUES ('location_1', '2019-01-06 08:45:43', '2019-01-06 08:45:43')[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.7ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mLocation Create (0.3ms)[0m  [1m[32mINSERT INTO `locations` (`address`, `created_at`, `updated_at`) VALUES ('location_2', '2019-01-06 08:45:43', '2019-01-06 08:45:43')[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mLocation Create (0.4ms)[0m  [1m[32mINSERT INTO `locations` (`address`, `created_at`, `updated_at`) VALUES ('location_3', '2019-01-06 08:45:43', '2019-01-06 08:45:43')[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mLocation Load (0.3ms)[0m  [1m[34mSELECT `locations`.* FROM `locations`[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mThermostat Create (0.9ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('3d50a320455ca885a9a690d738c3aef8', 1, '2019-01-06 08:45:43', '2019-01-06 08:45:43')[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mThermostat Create (0.9ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('7c4dcea2834b5bcca80db28d5088fa1c', 1, '2019-01-06 08:45:43', '2019-01-06 08:45:43')[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mThermostat Create (0.4ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('6d8a66e54fa0b17202fb89604103e690', 1, '2019-01-06 08:45:43', '2019-01-06 08:45:43')[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mThermostat Create (0.3ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('c38c0cb5cdbe3463730344a171037cb4', 2, '2019-01-06 08:45:43', '2019-01-06 08:45:43')[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mThermostat Create (0.4ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('e4b2417d32ff5bdb3407e4519e7657ec', 2, '2019-01-06 08:45:43', '2019-01-06 08:45:43')[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mThermostat Create (0.4ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('77ac05878bc3e22a558154d0355fe99f', 2, '2019-01-06 08:45:43', '2019-01-06 08:45:43')[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mThermostat Create (0.3ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('51317313a79fd35b3c4be3867e27efd5', 3, '2019-01-06 08:45:43', '2019-01-06 08:45:43')[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mThermostat Create (0.4ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('e3ad5eb1e585f1b17714f546a3e9b15c', 3, '2019-01-06 08:45:43', '2019-01-06 08:45:43')[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mThermostat Create (0.3ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('e2d50b6607a600095b57ac36d9104d61', 3, '2019-01-06 08:45:43', '2019-01-06 08:45:43')[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20181224190809')[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT  `ar_internal_metadata`.* FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' LIMIT 1[0m
+  [1m[35m (0.5ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.5ms)[0m  [1m[32mINSERT INTO `ar_internal_metadata` (`key`, `value`, `created_at`, `updated_at`) VALUES ('environment', 'test', '2019-01-06 08:45:43', '2019-01-06 08:45:43')[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT RELEASE_LOCK('3127420890237692160')[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[35m (0.4ms)[0m  [1m[35mSET  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mLocation Create (0.3ms)[0m  [1m[32mINSERT INTO `locations` (`address`, `created_at`, `updated_at`) VALUES ('MyLocation', '2019-01-06 08:45:45', '2019-01-06 08:45:45')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.4ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Create (0.3ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('e25003b0ea6aa7dad856d1e244c28664', 4, '2019-01-06 08:45:45', '2019-01-06 08:45:45')[0m
+  [1m[35m (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by Api::ReadingsController#create as HTML
+  Parameters: {"battery_charge"=>"78", "temperature"=>"98"}
+  [1m[36mThermostat Load (0.5ms)[0m  [1m[34mSELECT  `thermostats`.* FROM `thermostats` WHERE `thermostats`.`household_token` = 'e25003b0ea6aa7dad856d1e244c28664' LIMIT 1[0m
+  [1m[36mThermostat Load (0.4ms)[0m  [1m[34mSELECT  `thermostats`.* FROM `thermostats` WHERE `thermostats`.`household_token` = 'e25003b0ea6aa7dad856d1e244c28664' LIMIT 1[0m
+Completed 400 Bad Request in 4ms (Views: 0.2ms | ActiveRecord: 0.9ms)
+  [1m[35m (5.5ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mLocation Create (1.2ms)[0m  [1m[32mINSERT INTO `locations` (`address`, `created_at`, `updated_at`) VALUES ('MyLocation', '2019-01-06 08:45:45', '2019-01-06 08:45:45')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Create (0.3ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('4234c3ab3b4e5e419b6ca7d5d221b63b', 5, '2019-01-06 08:45:45', '2019-01-06 08:45:45')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by Api::ReadingsController#create as HTML
+  Parameters: {"battery_charge"=>"78", "humidity"=>"2.4"}
+  [1m[36mThermostat Load (0.4ms)[0m  [1m[34mSELECT  `thermostats`.* FROM `thermostats` WHERE `thermostats`.`household_token` = '4234c3ab3b4e5e419b6ca7d5d221b63b' LIMIT 1[0m
+  [1m[36mThermostat Load (0.3ms)[0m  [1m[34mSELECT  `thermostats`.* FROM `thermostats` WHERE `thermostats`.`household_token` = '4234c3ab3b4e5e419b6ca7d5d221b63b' LIMIT 1[0m
+Completed 400 Bad Request in 2ms (Views: 0.2ms | ActiveRecord: 0.8ms)
+  [1m[35m (0.5ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mLocation Create (1.1ms)[0m  [1m[32mINSERT INTO `locations` (`address`, `created_at`, `updated_at`) VALUES ('MyLocation', '2019-01-06 08:45:45', '2019-01-06 08:45:45')[0m
+  [1m[35m (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Create (0.3ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('8d724cf8b2aa7f0034f1234fa66c43a1', 6, '2019-01-06 08:45:45', '2019-01-06 08:45:45')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by Api::ReadingsController#create as HTML
+  Parameters: {"humidity"=>"2.4", "temperature"=>"98"}
+  [1m[36mThermostat Load (0.3ms)[0m  [1m[34mSELECT  `thermostats`.* FROM `thermostats` WHERE `thermostats`.`household_token` = '8d724cf8b2aa7f0034f1234fa66c43a1' LIMIT 1[0m
+  [1m[36mThermostat Load (0.4ms)[0m  [1m[34mSELECT  `thermostats`.* FROM `thermostats` WHERE `thermostats`.`household_token` = '8d724cf8b2aa7f0034f1234fa66c43a1' LIMIT 1[0m
+Completed 400 Bad Request in 2ms (Views: 0.2ms | ActiveRecord: 0.7ms)
+  [1m[35m (0.8ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+Processing by Api::ReadingsController#create as HTML
+  Parameters: {"battery_charge"=>"78", "humidity"=>"2.4"}
+  [1m[36mThermostat Load (0.4ms)[0m  [1m[34mSELECT  `thermostats`.* FROM `thermostats` WHERE `thermostats`.`household_token` = 'ab203e6e33fe67bd9795c7624d62205e' LIMIT 1[0m
+Filter chain halted as :authenticate_token! rendered or redirected
+Completed 401 Unauthorized in 1ms (Views: 0.1ms | ActiveRecord: 0.4ms)
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.5ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mLocation Create (0.3ms)[0m  [1m[32mINSERT INTO `locations` (`address`, `created_at`, `updated_at`) VALUES ('MyLocation', '2019-01-06 08:45:45', '2019-01-06 08:45:45')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Create (0.4ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('b453d1c8d89181bb4577330c673a4f73', 7, '2019-01-06 08:45:45', '2019-01-06 08:45:45')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.5ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mReading Create (0.4ms)[0m  [1m[32mINSERT INTO `readings` (`reading_id`, `number`, `temperature`, `humidity`, `battery_charge`, `thermostat_id`, `created_at`, `updated_at`) VALUES ('d01a1e12-7552-4949-8401-2fdf9ba5b266', 1, 98.0, 1.5, 75.0, 13, '2019-01-06 08:45:45', '2019-01-06 08:45:45')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by Api::ReadingsController#create as HTML
+  Parameters: {"battery_charge"=>"75.0", "humidity"=>"1.5", "temperature"=>"98.0"}
+  [1m[36mThermostat Load (0.4ms)[0m  [1m[34mSELECT  `thermostats`.* FROM `thermostats` WHERE `thermostats`.`household_token` = 'b453d1c8d89181bb4577330c673a4f73' LIMIT 1[0m
+  [1m[36mThermostat Load (0.4ms)[0m  [1m[34mSELECT  `thermostats`.* FROM `thermostats` WHERE `thermostats`.`household_token` = 'b453d1c8d89181bb4577330c673a4f73' LIMIT 1[0m
+Completed 200 OK in 4ms (Views: 0.6ms | ActiveRecord: 0.8ms)
+  [1m[35m (5.8ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mLocation Create (0.2ms)[0m  [1m[32mINSERT INTO `locations` (`address`, `created_at`, `updated_at`) VALUES ('MyLocation', '2019-01-06 08:45:45', '2019-01-06 08:45:45')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Create (0.3ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('a0f5c201b9d41329b947e0f71a8fd97d', 8, '2019-01-06 08:45:45', '2019-01-06 08:45:45')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mReading Create (0.2ms)[0m  [1m[32mINSERT INTO `readings` (`reading_id`, `number`, `temperature`, `humidity`, `battery_charge`, `thermostat_id`, `created_at`, `updated_at`) VALUES ('1a103cbe-310e-46c6-b84b-0d591456cbf0', 1, 98.0, 1.5, 75.0, 14, '2019-01-06 08:45:45', '2019-01-06 08:45:45')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by Api::ReadingsController#show as HTML
+  Parameters: {"id"=>"1a103cbe-310e-46c6-b84b-0d591456cbf0"}
+  [1m[36mThermostat Load (0.3ms)[0m  [1m[34mSELECT  `thermostats`.* FROM `thermostats` WHERE `thermostats`.`household_token` = 'a0f5c201b9d41329b947e0f71a8fd97d' LIMIT 1[0m
+  [1m[36mThermostat Load (0.4ms)[0m  [1m[34mSELECT  `thermostats`.* FROM `thermostats` WHERE `thermostats`.`household_token` = 'a0f5c201b9d41329b947e0f71a8fd97d' LIMIT 1[0m
+Completed 200 OK in 2ms (Views: 0.6ms | ActiveRecord: 0.7ms)
+  [1m[35m (0.6ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mLocation Create (0.4ms)[0m  [1m[32mINSERT INTO `locations` (`address`, `created_at`, `updated_at`) VALUES ('MyLocation', '2019-01-06 08:45:45', '2019-01-06 08:45:45')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Create (0.4ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('e719e122572d170ec44beb6d97de488a', 9, '2019-01-06 08:45:45', '2019-01-06 08:45:45')[0m
+  [1m[35m (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mReading Create (0.4ms)[0m  [1m[32mINSERT INTO `readings` (`reading_id`, `number`, `temperature`, `humidity`, `battery_charge`, `thermostat_id`, `created_at`, `updated_at`) VALUES ('d6271ec6-2a74-48bb-9570-dbcf496ac140', 1, 98.0, 1.5, 75.0, 15, '2019-01-06 08:45:45', '2019-01-06 08:45:45')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Create (0.3ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('36a725fc4c436ed31e461a5fc27b9efc', 9, '2019-01-06 08:45:45', '2019-01-06 08:45:45')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by Api::ReadingsController#show as HTML
+  Parameters: {"id"=>"d6271ec6-2a74-48bb-9570-dbcf496ac140"}
+  [1m[36mThermostat Load (0.4ms)[0m  [1m[34mSELECT  `thermostats`.* FROM `thermostats` WHERE `thermostats`.`household_token` = '36a725fc4c436ed31e461a5fc27b9efc' LIMIT 1[0m
+  [1m[36mThermostat Load (0.3ms)[0m  [1m[34mSELECT  `thermostats`.* FROM `thermostats` WHERE `thermostats`.`household_token` = '36a725fc4c436ed31e461a5fc27b9efc' LIMIT 1[0m
+Completed 401 Unauthorized in 2ms (Views: 0.2ms | ActiveRecord: 0.6ms)
+  [1m[35m (1.0ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.5ms)[0m  [1m[35mSET  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (1.3ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mLocation Create (0.4ms)[0m  [1m[32mINSERT INTO `locations` (`address`, `created_at`, `updated_at`) VALUES ('MyLocation', '2019-01-06 08:45:48', '2019-01-06 08:45:48')[0m
+  [1m[35m (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Create (0.6ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('78f7ec602c36ef8dcd831ecd8c4e015f', 10, '2019-01-06 08:45:48', '2019-01-06 08:45:48')[0m
+  [1m[35m (0.4ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.4ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mReading Create (0.6ms)[0m  [1m[32mINSERT INTO `readings` (`reading_id`, `number`, `temperature`, `humidity`, `battery_charge`, `thermostat_id`, `created_at`, `updated_at`) VALUES ('c1697926-4784-4144-8cf9-efd87e39444f', 2, 98.0, 1.5, 75.0, 17, '2019-01-06 08:45:48', '2019-01-06 08:45:48')[0m
+  [1m[35m (0.6ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mReading Create (0.4ms)[0m  [1m[32mINSERT INTO `readings` (`reading_id`, `number`, `temperature`, `humidity`, `battery_charge`, `thermostat_id`, `created_at`, `updated_at`) VALUES ('053e2900-aa23-486a-9f72-11d5c4980572', 2, 98.0, 1.5, 75.0, 17, '2019-01-06 08:45:48', '2019-01-06 08:45:48')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mReading Create (0.4ms)[0m  [1m[32mINSERT INTO `readings` (`reading_id`, `number`, `temperature`, `humidity`, `battery_charge`, `thermostat_id`, `created_at`, `updated_at`) VALUES ('e8f43f49-f68c-49e5-8691-6c8f71089150', 3, 98.0, 1.5, 75.0, 17, '2019-01-06 08:45:48', '2019-01-06 08:45:48')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mReading Create (0.4ms)[0m  [1m[32mINSERT INTO `readings` (`reading_id`, `number`, `temperature`, `humidity`, `battery_charge`, `thermostat_id`, `created_at`, `updated_at`) VALUES ('86e647b3-ca55-4b00-9e47-82e7bcff1026', 4, 98.0, 1.5, 75.0, 17, '2019-01-06 08:45:48', '2019-01-06 08:45:48')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (6.8ms)[0m  [1m[34mSELECT AVG(`readings`.`temperature`) FROM `readings` WHERE `readings`.`thermostat_id` = 17[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT MIN(`readings`.`temperature`) FROM `readings` WHERE `readings`.`thermostat_id` = 17[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT MAX(`readings`.`temperature`) FROM `readings` WHERE `readings`.`thermostat_id` = 17[0m
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT AVG(`readings`.`humidity`) FROM `readings` WHERE `readings`.`thermostat_id` = 17[0m
+  [1m[35m (1.1ms)[0m  [1m[34mSELECT MIN(`readings`.`humidity`) FROM `readings` WHERE `readings`.`thermostat_id` = 17[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT MAX(`readings`.`humidity`) FROM `readings` WHERE `readings`.`thermostat_id` = 17[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT AVG(`readings`.`battery_charge`) FROM `readings` WHERE `readings`.`thermostat_id` = 17[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT MIN(`readings`.`battery_charge`) FROM `readings` WHERE `readings`.`thermostat_id` = 17[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT MAX(`readings`.`battery_charge`) FROM `readings` WHERE `readings`.`thermostat_id` = 17[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT AVG(`readings`.`temperature`) FROM `readings` WHERE `readings`.`thermostat_id` = 17[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT MAX(`readings`.`temperature`) FROM `readings` WHERE `readings`.`thermostat_id` = 17[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT MIN(`readings`.`temperature`) FROM `readings` WHERE `readings`.`thermostat_id` = 17[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT AVG(`readings`.`humidity`) FROM `readings` WHERE `readings`.`thermostat_id` = 17[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT MAX(`readings`.`humidity`) FROM `readings` WHERE `readings`.`thermostat_id` = 17[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT MIN(`readings`.`humidity`) FROM `readings` WHERE `readings`.`thermostat_id` = 17[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT AVG(`readings`.`battery_charge`) FROM `readings` WHERE `readings`.`thermostat_id` = 17[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT MAX(`readings`.`battery_charge`) FROM `readings` WHERE `readings`.`thermostat_id` = 17[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT MIN(`readings`.`battery_charge`) FROM `readings` WHERE `readings`.`thermostat_id` = 17[0m
+  [1m[35m (0.5ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mLocation Create (0.3ms)[0m  [1m[32mINSERT INTO `locations` (`address`, `created_at`, `updated_at`) VALUES ('MyLocation', '2019-01-06 08:45:48', '2019-01-06 08:45:48')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Create (0.3ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('f8f3cfd12fc1bfd75de4d7d533bcf330', 11, '2019-01-06 08:45:48', '2019-01-06 08:45:48')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mReading Create (0.3ms)[0m  [1m[32mINSERT INTO `readings` (`reading_id`, `number`, `temperature`, `humidity`, `battery_charge`, `thermostat_id`, `created_at`, `updated_at`) VALUES ('0e6f8832-3b76-4fc2-9481-2d91c0812429', 2, 98.0, 1.5, 75.0, 18, '2019-01-06 08:45:48', '2019-01-06 08:45:48')[0m
+  [1m[35m (0.4ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mReading Create (0.3ms)[0m  [1m[32mINSERT INTO `readings` (`reading_id`, `number`, `temperature`, `humidity`, `battery_charge`, `thermostat_id`, `created_at`, `updated_at`) VALUES ('190048d5-d376-4b2d-a26c-13a1279fed9a', 2, 98.0, 1.5, 75.0, 18, '2019-01-06 08:45:48', '2019-01-06 08:45:48')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mReading Create (0.3ms)[0m  [1m[32mINSERT INTO `readings` (`reading_id`, `number`, `temperature`, `humidity`, `battery_charge`, `thermostat_id`, `created_at`, `updated_at`) VALUES ('473ded59-9ac8-4918-a5e8-1ede5dde7e37', 3, 98.0, 1.5, 75.0, 18, '2019-01-06 08:45:48', '2019-01-06 08:45:48')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mThermostat Load (0.4ms)[0m  [1m[34mSELECT `thermostats`.* FROM `thermostats` WHERE `thermostats`.`location_id` = 11[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT AVG(`readings`.`temperature`) FROM `readings` WHERE `readings`.`thermostat_id` = 18[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT MIN(`readings`.`temperature`) FROM `readings` WHERE `readings`.`thermostat_id` = 18[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT MAX(`readings`.`temperature`) FROM `readings` WHERE `readings`.`thermostat_id` = 18[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT AVG(`readings`.`humidity`) FROM `readings` WHERE `readings`.`thermostat_id` = 18[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT MIN(`readings`.`humidity`) FROM `readings` WHERE `readings`.`thermostat_id` = 18[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT MAX(`readings`.`humidity`) FROM `readings` WHERE `readings`.`thermostat_id` = 18[0m
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT AVG(`readings`.`battery_charge`) FROM `readings` WHERE `readings`.`thermostat_id` = 18[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT MIN(`readings`.`battery_charge`) FROM `readings` WHERE `readings`.`thermostat_id` = 18[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT MAX(`readings`.`battery_charge`) FROM `readings` WHERE `readings`.`thermostat_id` = 18[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT AVG(`readings`.`temperature`) FROM `readings` WHERE `readings`.`thermostat_id` = 18[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT MIN(`readings`.`temperature`) FROM `readings` WHERE `readings`.`thermostat_id` = 18[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT MAX(`readings`.`temperature`) FROM `readings` WHERE `readings`.`thermostat_id` = 18[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT AVG(`readings`.`humidity`) FROM `readings` WHERE `readings`.`thermostat_id` = 18[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT MIN(`readings`.`humidity`) FROM `readings` WHERE `readings`.`thermostat_id` = 18[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT MAX(`readings`.`humidity`) FROM `readings` WHERE `readings`.`thermostat_id` = 18[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT AVG(`readings`.`battery_charge`) FROM `readings` WHERE `readings`.`thermostat_id` = 18[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT MIN(`readings`.`battery_charge`) FROM `readings` WHERE `readings`.`thermostat_id` = 18[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT MAX(`readings`.`battery_charge`) FROM `readings` WHERE `readings`.`thermostat_id` = 18[0m
+  [1m[35m (5.0ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mLocation Create (0.3ms)[0m  [1m[32mINSERT INTO `locations` (`address`, `created_at`, `updated_at`) VALUES ('MyLocation', '2019-01-06 08:45:49', '2019-01-06 08:45:49')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Create (0.3ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('7088b153a4e1fdcd59a4041829d1a0c1', 12, '2019-01-06 08:45:49', '2019-01-06 08:45:49')[0m
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (10.7ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mLocation Create (2.8ms)[0m  [1m[32mINSERT INTO `locations` (`address`, `created_at`, `updated_at`) VALUES ('MyLocation', '2019-01-06 08:45:49', '2019-01-06 08:45:49')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Create (0.3ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('c349e4d28cda4279c77215c4f04b9069', 13, '2019-01-06 08:45:49', '2019-01-06 08:45:49')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mReading Create (0.3ms)[0m  [1m[32mINSERT INTO `readings` (`reading_id`, `number`, `temperature`, `humidity`, `battery_charge`, `thermostat_id`, `created_at`, `updated_at`) VALUES ('ce26ed6c-40b9-4d2f-a32e-88cdbfb9e5a6', 1, 98.0, 1.5, 75.0, 20, '2019-01-06 08:45:49', '2019-01-06 08:45:49')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mReading Load (0.4ms)[0m  [1m[34mSELECT  `readings`.* FROM `readings` WHERE `readings`.`reading_id` = 'ce26ed6c-40b9-4d2f-a32e-88cdbfb9e5a6' ORDER BY `readings`.`id` DESC LIMIT 1[0m
+  [1m[35m (4.6ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.5ms)[0m  [1m[35mSET  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (2.1ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mReading Load (0.4ms)[0m  [1m[34mSELECT  `readings`.* FROM `readings` WHERE `readings`.`reading_id` = '41611c04-1682-445b-a71e-a1f1c53981b8' LIMIT 1[0m
+  [1m[36mReading Load (0.3ms)[0m  [1m[34mSELECT  `readings`.* FROM `readings` WHERE `readings`.`reading_id` = '41611c04-1682-445b-a71e-a1f1c53981b8' LIMIT 1[0m
+  [1m[35m (5.0ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mLocation Create (0.3ms)[0m  [1m[32mINSERT INTO `locations` (`address`, `created_at`, `updated_at`) VALUES ('MyLocation', '2019-01-06 08:45:54', '2019-01-06 08:45:54')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Create (0.3ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('701e894ea1209fc1690e0d1087f1b49c', 14, '2019-01-06 08:45:54', '2019-01-06 08:45:54')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mReading Load (0.7ms)[0m  [1m[34mSELECT  `readings`.* FROM `readings` WHERE `readings`.`reading_id` = '59268dbb-2b54-4f19-8fb1-5b484618ba69' LIMIT 1[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Load (0.7ms)[0m  [1m[34mSELECT  `thermostats`.* FROM `thermostats` WHERE `thermostats`.`id` = 21 LIMIT 1[0m
+  [1m[36mReading Create (0.5ms)[0m  [1m[32mINSERT INTO `readings` (`reading_id`, `temperature`, `humidity`, `battery_charge`, `thermostat_id`, `created_at`, `updated_at`) VALUES ('59268dbb-2b54-4f19-8fb1-5b484618ba69', 44.0, 8.2, 87.0, 21, '2019-01-06 08:45:54', '2019-01-06 08:45:54')[0m
+  [1m[35m (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mReading Load (0.5ms)[0m  [1m[34mSELECT  `readings`.* FROM `readings` WHERE `readings`.`reading_id` = '59268dbb-2b54-4f19-8fb1-5b484618ba69' LIMIT 1[0m
+  [1m[35m (2.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.4ms)[0m  [1m[35mSET  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (31.0ms)[0m  [1m[35mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL PRIMARY KEY)[0m
+  [1m[35m (22.5ms)[0m  [1m[35mCREATE TABLE `ar_internal_metadata` (`key` varchar(255) NOT NULL PRIMARY KEY, `value` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT GET_LOCK('3127420890237692160', 0)[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Migrating to CreateLocations (20181224190531)
+  [1m[35m (12.6ms)[0m  [1m[35mCREATE TABLE `locations` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `address` text, `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20181224190531')[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateThermostats (20181224190807)
+  [1m[35m (10.6ms)[0m  [1m[35mCREATE TABLE `thermostats` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `household_token` text, `location_id` bigint, `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL,  INDEX `index_thermostats_on_location_id`  (`location_id`), CONSTRAINT `fk_rails_050e604641`
+FOREIGN KEY (`location_id`)
+  REFERENCES `locations` (`id`)
+)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20181224190807')[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateReadings (20181224190808)
+  [1m[35m (8.7ms)[0m  [1m[35mCREATE TABLE `readings` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `reading_id` varchar(255), `number` int, `temperature` float(24), `humidity` float(24), `battery_charge` float(24), `thermostat_id` bigint, `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL,  INDEX `index_readings_on_thermostat_id`  (`thermostat_id`), CONSTRAINT `fk_rails_7c067bcadb`
+FOREIGN KEY (`thermostat_id`)
+  REFERENCES `thermostats` (`id`)
+)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20181224190808')[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddThermostats (20181224190809)
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mLocation Create (1.2ms)[0m  [1m[32mINSERT INTO `locations` (`address`, `created_at`, `updated_at`) VALUES ('location_1', '2019-01-06 08:50:43', '2019-01-06 08:50:43')[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mLocation Create (0.3ms)[0m  [1m[32mINSERT INTO `locations` (`address`, `created_at`, `updated_at`) VALUES ('location_2', '2019-01-06 08:50:43', '2019-01-06 08:50:43')[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mLocation Create (0.3ms)[0m  [1m[32mINSERT INTO `locations` (`address`, `created_at`, `updated_at`) VALUES ('location_3', '2019-01-06 08:50:43', '2019-01-06 08:50:43')[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mLocation Load (0.4ms)[0m  [1m[34mSELECT `locations`.* FROM `locations`[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mThermostat Create (0.4ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('c6981b436492b77d93f10b3e2c46bab8', 1, '2019-01-06 08:50:43', '2019-01-06 08:50:43')[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mThermostat Create (0.4ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('d5e8f545ec22cea3a982b52f6fcc5c18', 1, '2019-01-06 08:50:43', '2019-01-06 08:50:43')[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mThermostat Create (0.3ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('a9719cef268d831e393ee63ba1efb95d', 1, '2019-01-06 08:50:43', '2019-01-06 08:50:43')[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mThermostat Create (0.5ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('939423e6a03c416f53916c0f46f9276f', 2, '2019-01-06 08:50:43', '2019-01-06 08:50:43')[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mThermostat Create (0.3ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('662aeaa29e937152ada1090c220db3f1', 2, '2019-01-06 08:50:43', '2019-01-06 08:50:43')[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mThermostat Create (0.3ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('87778a41fddfd60b37e822a947b0a2d9', 2, '2019-01-06 08:50:43', '2019-01-06 08:50:43')[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mThermostat Create (0.3ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('81adb4a34e4610815338cee3d2aed418', 3, '2019-01-06 08:50:43', '2019-01-06 08:50:43')[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mThermostat Create (0.3ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('5391f2c704c8d660817bf8c0b3d6286c', 3, '2019-01-06 08:50:43', '2019-01-06 08:50:43')[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mThermostat Create (0.5ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('708cf48cc26a170453d7a8797befcfa4', 3, '2019-01-06 08:50:43', '2019-01-06 08:50:43')[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20181224190809')[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.8ms)[0m  [1m[34mSELECT  `ar_internal_metadata`.* FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.3ms)[0m  [1m[32mINSERT INTO `ar_internal_metadata` (`key`, `value`, `created_at`, `updated_at`) VALUES ('environment', 'test', '2019-01-06 08:50:43', '2019-01-06 08:50:43')[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT RELEASE_LOCK('3127420890237692160')[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[35m (0.4ms)[0m  [1m[35mSET  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mLocation Create (0.3ms)[0m  [1m[32mINSERT INTO `locations` (`address`, `created_at`, `updated_at`) VALUES ('MyLocation', '2019-01-06 08:50:46', '2019-01-06 08:50:46')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Create (0.3ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('f20f0e876cb71f33ecca159112b7ce74', 4, '2019-01-06 08:50:46', '2019-01-06 08:50:46')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mReading Create (0.4ms)[0m  [1m[32mINSERT INTO `readings` (`reading_id`, `number`, `temperature`, `humidity`, `battery_charge`, `thermostat_id`, `created_at`, `updated_at`) VALUES ('dc11fcce-1175-445f-8b57-1ca60fb62d9b', 1, 98.0, 1.5, 75.0, 10, '2019-01-06 08:50:46', '2019-01-06 08:50:46')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by Api::ReadingsController#show as HTML
+  Parameters: {"id"=>"dc11fcce-1175-445f-8b57-1ca60fb62d9b"}
+  [1m[36mThermostat Load (1.2ms)[0m  [1m[34mSELECT  `thermostats`.* FROM `thermostats` WHERE `thermostats`.`household_token` = 'f20f0e876cb71f33ecca159112b7ce74' LIMIT 1[0m
+  [1m[36mThermostat Load (0.4ms)[0m  [1m[34mSELECT  `thermostats`.* FROM `thermostats` WHERE `thermostats`.`household_token` = 'f20f0e876cb71f33ecca159112b7ce74' LIMIT 1[0m
+Completed 200 OK in 11ms (Views: 0.5ms | ActiveRecord: 1.6ms)
+  [1m[35m (4.6ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mLocation Create (0.3ms)[0m  [1m[32mINSERT INTO `locations` (`address`, `created_at`, `updated_at`) VALUES ('MyLocation', '2019-01-06 08:50:46', '2019-01-06 08:50:46')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Create (0.3ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('a164d841299f51a0050ee515df025c54', 5, '2019-01-06 08:50:46', '2019-01-06 08:50:46')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mReading Create (0.3ms)[0m  [1m[32mINSERT INTO `readings` (`reading_id`, `number`, `temperature`, `humidity`, `battery_charge`, `thermostat_id`, `created_at`, `updated_at`) VALUES ('e1b3e6f4-7618-4347-beba-5b8daa0ffa95', 1, 98.0, 1.5, 75.0, 11, '2019-01-06 08:50:46', '2019-01-06 08:50:46')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Create (0.2ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('e8cf413a224ff0f2a67bf12e9ac47c58', 5, '2019-01-06 08:50:46', '2019-01-06 08:50:46')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by Api::ReadingsController#show as HTML
+  Parameters: {"id"=>"e1b3e6f4-7618-4347-beba-5b8daa0ffa95"}
+  [1m[36mThermostat Load (0.4ms)[0m  [1m[34mSELECT  `thermostats`.* FROM `thermostats` WHERE `thermostats`.`household_token` = 'e8cf413a224ff0f2a67bf12e9ac47c58' LIMIT 1[0m
+  [1m[36mThermostat Load (0.3ms)[0m  [1m[34mSELECT  `thermostats`.* FROM `thermostats` WHERE `thermostats`.`household_token` = 'e8cf413a224ff0f2a67bf12e9ac47c58' LIMIT 1[0m
+Completed 401 Unauthorized in 2ms (Views: 0.2ms | ActiveRecord: 0.7ms)
+  [1m[35m (0.6ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mLocation Create (0.3ms)[0m  [1m[32mINSERT INTO `locations` (`address`, `created_at`, `updated_at`) VALUES ('MyLocation', '2019-01-06 08:50:46', '2019-01-06 08:50:46')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Create (0.3ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('fd9d854d6ba173888c08b7d694c790d4', 6, '2019-01-06 08:50:46', '2019-01-06 08:50:46')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mReading Create (0.3ms)[0m  [1m[32mINSERT INTO `readings` (`reading_id`, `number`, `temperature`, `humidity`, `battery_charge`, `thermostat_id`, `created_at`, `updated_at`) VALUES ('0915e8cf-8217-4e72-8fdb-f70ce0e67eb1', 1, 98.0, 1.5, 75.0, 13, '2019-01-06 08:50:46', '2019-01-06 08:50:46')[0m
+  [1m[35m (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by Api::ReadingsController#create as HTML
+  Parameters: {"battery_charge"=>"75.0", "humidity"=>"1.5", "temperature"=>"98.0"}
+  [1m[36mThermostat Load (0.4ms)[0m  [1m[34mSELECT  `thermostats`.* FROM `thermostats` WHERE `thermostats`.`household_token` = 'fd9d854d6ba173888c08b7d694c790d4' LIMIT 1[0m
+  [1m[36mThermostat Load (0.3ms)[0m  [1m[34mSELECT  `thermostats`.* FROM `thermostats` WHERE `thermostats`.`household_token` = 'fd9d854d6ba173888c08b7d694c790d4' LIMIT 1[0m
+Completed 200 OK in 3ms (Views: 0.5ms | ActiveRecord: 0.7ms)
+  [1m[35m (0.7ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+Processing by Api::ReadingsController#create as HTML
+  Parameters: {"battery_charge"=>"78", "humidity"=>"2.4"}
+  [1m[36mThermostat Load (0.4ms)[0m  [1m[34mSELECT  `thermostats`.* FROM `thermostats` WHERE `thermostats`.`household_token` = 'a4025d705a3cc6dc3d53273762a2eebf' LIMIT 1[0m
+Filter chain halted as :authenticate_token! rendered or redirected
+Completed 401 Unauthorized in 2ms (Views: 0.4ms | ActiveRecord: 0.4ms)
+  [1m[35m (0.4ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mLocation Create (0.3ms)[0m  [1m[32mINSERT INTO `locations` (`address`, `created_at`, `updated_at`) VALUES ('MyLocation', '2019-01-06 08:50:46', '2019-01-06 08:50:46')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Create (0.3ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('cd0c5bb124fb7ffd87f050cd99b17625', 7, '2019-01-06 08:50:46', '2019-01-06 08:50:46')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by Api::ReadingsController#create as HTML
+  Parameters: {"battery_charge"=>"78", "temperature"=>"98"}
+  [1m[36mThermostat Load (0.4ms)[0m  [1m[34mSELECT  `thermostats`.* FROM `thermostats` WHERE `thermostats`.`household_token` = 'cd0c5bb124fb7ffd87f050cd99b17625' LIMIT 1[0m
+  [1m[36mThermostat Load (0.3ms)[0m  [1m[34mSELECT  `thermostats`.* FROM `thermostats` WHERE `thermostats`.`household_token` = 'cd0c5bb124fb7ffd87f050cd99b17625' LIMIT 1[0m
+Completed 400 Bad Request in 6ms (Views: 4.4ms | ActiveRecord: 0.7ms)
+  [1m[35m (0.6ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mLocation Create (0.3ms)[0m  [1m[32mINSERT INTO `locations` (`address`, `created_at`, `updated_at`) VALUES ('MyLocation', '2019-01-06 08:50:46', '2019-01-06 08:50:46')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Create (0.3ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('b34222dc8390cdbbff6645ce52339ad0', 8, '2019-01-06 08:50:46', '2019-01-06 08:50:46')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by Api::ReadingsController#create as HTML
+  Parameters: {"humidity"=>"2.4", "temperature"=>"98"}
+  [1m[36mThermostat Load (0.3ms)[0m  [1m[34mSELECT  `thermostats`.* FROM `thermostats` WHERE `thermostats`.`household_token` = 'b34222dc8390cdbbff6645ce52339ad0' LIMIT 1[0m
+  [1m[36mThermostat Load (0.3ms)[0m  [1m[34mSELECT  `thermostats`.* FROM `thermostats` WHERE `thermostats`.`household_token` = 'b34222dc8390cdbbff6645ce52339ad0' LIMIT 1[0m
+Completed 400 Bad Request in 2ms (Views: 0.2ms | ActiveRecord: 0.7ms)
+  [1m[35m (0.6ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mLocation Create (0.3ms)[0m  [1m[32mINSERT INTO `locations` (`address`, `created_at`, `updated_at`) VALUES ('MyLocation', '2019-01-06 08:50:46', '2019-01-06 08:50:46')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Create (0.4ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('c6a59bc4117f5216281486a930a606a4', 9, '2019-01-06 08:50:46', '2019-01-06 08:50:46')[0m
+  [1m[35m (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Processing by Api::ReadingsController#create as HTML
+  Parameters: {"battery_charge"=>"78", "humidity"=>"2.4"}
+  [1m[36mThermostat Load (0.7ms)[0m  [1m[34mSELECT  `thermostats`.* FROM `thermostats` WHERE `thermostats`.`household_token` = 'c6a59bc4117f5216281486a930a606a4' LIMIT 1[0m
+  [1m[36mThermostat Load (0.6ms)[0m  [1m[34mSELECT  `thermostats`.* FROM `thermostats` WHERE `thermostats`.`household_token` = 'c6a59bc4117f5216281486a930a606a4' LIMIT 1[0m
+Completed 400 Bad Request in 3ms (Views: 0.2ms | ActiveRecord: 1.3ms)
+  [1m[35m (0.7ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.4ms)[0m  [1m[35mSET  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mLocation Create (0.3ms)[0m  [1m[32mINSERT INTO `locations` (`address`, `created_at`, `updated_at`) VALUES ('MyLocation', '2019-01-06 08:50:49', '2019-01-06 08:50:49')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Create (0.4ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('d5af5edb189936205476d4aa33df2302', 10, '2019-01-06 08:50:49', '2019-01-06 08:50:49')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mReading Create (0.3ms)[0m  [1m[32mINSERT INTO `readings` (`reading_id`, `number`, `temperature`, `humidity`, `battery_charge`, `thermostat_id`, `created_at`, `updated_at`) VALUES ('5b977224-b618-4eb4-8798-e26b8e8e6c45', 2, 98.0, 1.5, 75.0, 17, '2019-01-06 08:50:49', '2019-01-06 08:50:49')[0m
+  [1m[35m (0.4ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.5ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mReading Create (0.4ms)[0m  [1m[32mINSERT INTO `readings` (`reading_id`, `number`, `temperature`, `humidity`, `battery_charge`, `thermostat_id`, `created_at`, `updated_at`) VALUES ('e8585245-f196-4004-8074-3eed4bf8892d', 2, 98.0, 1.5, 75.0, 17, '2019-01-06 08:50:49', '2019-01-06 08:50:49')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.4ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mReading Create (0.6ms)[0m  [1m[32mINSERT INTO `readings` (`reading_id`, `number`, `temperature`, `humidity`, `battery_charge`, `thermostat_id`, `created_at`, `updated_at`) VALUES ('381d94c3-5c53-42cb-89f0-bd7f7a6dfc65', 3, 98.0, 1.5, 75.0, 17, '2019-01-06 08:50:49', '2019-01-06 08:50:49')[0m
+  [1m[35m (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.4ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mReading Create (0.4ms)[0m  [1m[32mINSERT INTO `readings` (`reading_id`, `number`, `temperature`, `humidity`, `battery_charge`, `thermostat_id`, `created_at`, `updated_at`) VALUES ('bde04ea1-647a-45c4-8c60-4f1e44bb06c3', 4, 98.0, 1.5, 75.0, 17, '2019-01-06 08:50:49', '2019-01-06 08:50:49')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (5.8ms)[0m  [1m[34mSELECT AVG(`readings`.`temperature`) FROM `readings` WHERE `readings`.`thermostat_id` = 17[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT MIN(`readings`.`temperature`) FROM `readings` WHERE `readings`.`thermostat_id` = 17[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT MAX(`readings`.`temperature`) FROM `readings` WHERE `readings`.`thermostat_id` = 17[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT AVG(`readings`.`humidity`) FROM `readings` WHERE `readings`.`thermostat_id` = 17[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT MIN(`readings`.`humidity`) FROM `readings` WHERE `readings`.`thermostat_id` = 17[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT MAX(`readings`.`humidity`) FROM `readings` WHERE `readings`.`thermostat_id` = 17[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT AVG(`readings`.`battery_charge`) FROM `readings` WHERE `readings`.`thermostat_id` = 17[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT MIN(`readings`.`battery_charge`) FROM `readings` WHERE `readings`.`thermostat_id` = 17[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT MAX(`readings`.`battery_charge`) FROM `readings` WHERE `readings`.`thermostat_id` = 17[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT AVG(`readings`.`temperature`) FROM `readings` WHERE `readings`.`thermostat_id` = 17[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT MAX(`readings`.`temperature`) FROM `readings` WHERE `readings`.`thermostat_id` = 17[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT MIN(`readings`.`temperature`) FROM `readings` WHERE `readings`.`thermostat_id` = 17[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT AVG(`readings`.`humidity`) FROM `readings` WHERE `readings`.`thermostat_id` = 17[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT MAX(`readings`.`humidity`) FROM `readings` WHERE `readings`.`thermostat_id` = 17[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT MIN(`readings`.`humidity`) FROM `readings` WHERE `readings`.`thermostat_id` = 17[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT AVG(`readings`.`battery_charge`) FROM `readings` WHERE `readings`.`thermostat_id` = 17[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT MAX(`readings`.`battery_charge`) FROM `readings` WHERE `readings`.`thermostat_id` = 17[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT MIN(`readings`.`battery_charge`) FROM `readings` WHERE `readings`.`thermostat_id` = 17[0m
+  [1m[35m (2.5ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mLocation Create (0.4ms)[0m  [1m[32mINSERT INTO `locations` (`address`, `created_at`, `updated_at`) VALUES ('MyLocation', '2019-01-06 08:50:49', '2019-01-06 08:50:49')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Create (0.4ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('602ed7626aa69755ec3a03b4201ff175', 11, '2019-01-06 08:50:49', '2019-01-06 08:50:49')[0m
+  [1m[35m (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mReading Create (0.4ms)[0m  [1m[32mINSERT INTO `readings` (`reading_id`, `number`, `temperature`, `humidity`, `battery_charge`, `thermostat_id`, `created_at`, `updated_at`) VALUES ('f411af03-2334-497d-aa67-ba7ae405f319', 2, 98.0, 1.5, 75.0, 18, '2019-01-06 08:50:49', '2019-01-06 08:50:49')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mReading Create (0.4ms)[0m  [1m[32mINSERT INTO `readings` (`reading_id`, `number`, `temperature`, `humidity`, `battery_charge`, `thermostat_id`, `created_at`, `updated_at`) VALUES ('c9ce284b-b76a-4fd9-89a5-e378e3457a71', 2, 98.0, 1.5, 75.0, 18, '2019-01-06 08:50:49', '2019-01-06 08:50:49')[0m
+  [1m[35m (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mReading Create (0.3ms)[0m  [1m[32mINSERT INTO `readings` (`reading_id`, `number`, `temperature`, `humidity`, `battery_charge`, `thermostat_id`, `created_at`, `updated_at`) VALUES ('fd716dfb-7167-475e-b687-4a2f75e02d33', 3, 98.0, 1.5, 75.0, 18, '2019-01-06 08:50:49', '2019-01-06 08:50:49')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mThermostat Load (3.2ms)[0m  [1m[34mSELECT `thermostats`.* FROM `thermostats` WHERE `thermostats`.`location_id` = 11[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT AVG(`readings`.`temperature`) FROM `readings` WHERE `readings`.`thermostat_id` = 18[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT MIN(`readings`.`temperature`) FROM `readings` WHERE `readings`.`thermostat_id` = 18[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT MAX(`readings`.`temperature`) FROM `readings` WHERE `readings`.`thermostat_id` = 18[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT AVG(`readings`.`humidity`) FROM `readings` WHERE `readings`.`thermostat_id` = 18[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT MIN(`readings`.`humidity`) FROM `readings` WHERE `readings`.`thermostat_id` = 18[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT MAX(`readings`.`humidity`) FROM `readings` WHERE `readings`.`thermostat_id` = 18[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT AVG(`readings`.`battery_charge`) FROM `readings` WHERE `readings`.`thermostat_id` = 18[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT MIN(`readings`.`battery_charge`) FROM `readings` WHERE `readings`.`thermostat_id` = 18[0m
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT MAX(`readings`.`battery_charge`) FROM `readings` WHERE `readings`.`thermostat_id` = 18[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT AVG(`readings`.`temperature`) FROM `readings` WHERE `readings`.`thermostat_id` = 18[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT MIN(`readings`.`temperature`) FROM `readings` WHERE `readings`.`thermostat_id` = 18[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT MAX(`readings`.`temperature`) FROM `readings` WHERE `readings`.`thermostat_id` = 18[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT AVG(`readings`.`humidity`) FROM `readings` WHERE `readings`.`thermostat_id` = 18[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT MIN(`readings`.`humidity`) FROM `readings` WHERE `readings`.`thermostat_id` = 18[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT MAX(`readings`.`humidity`) FROM `readings` WHERE `readings`.`thermostat_id` = 18[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT AVG(`readings`.`battery_charge`) FROM `readings` WHERE `readings`.`thermostat_id` = 18[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT MIN(`readings`.`battery_charge`) FROM `readings` WHERE `readings`.`thermostat_id` = 18[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT MAX(`readings`.`battery_charge`) FROM `readings` WHERE `readings`.`thermostat_id` = 18[0m
+  [1m[35m (5.6ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.4ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mLocation Create (0.5ms)[0m  [1m[32mINSERT INTO `locations` (`address`, `created_at`, `updated_at`) VALUES ('MyLocation', '2019-01-06 08:50:49', '2019-01-06 08:50:49')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Create (0.3ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('b823ba6d1c10646400849afd772964c0', 12, '2019-01-06 08:50:49', '2019-01-06 08:50:49')[0m
+  [1m[35m (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mReading Create (0.4ms)[0m  [1m[32mINSERT INTO `readings` (`reading_id`, `number`, `temperature`, `humidity`, `battery_charge`, `thermostat_id`, `created_at`, `updated_at`) VALUES ('b0cfaacc-680c-40da-b7da-400d6bce6820', 1, 98.0, 1.5, 75.0, 19, '2019-01-06 08:50:49', '2019-01-06 08:50:49')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mReading Load (0.4ms)[0m  [1m[34mSELECT  `readings`.* FROM `readings` WHERE `readings`.`reading_id` = 'b0cfaacc-680c-40da-b7da-400d6bce6820' ORDER BY `readings`.`id` DESC LIMIT 1[0m
+  [1m[35m (5.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mLocation Create (0.3ms)[0m  [1m[32mINSERT INTO `locations` (`address`, `created_at`, `updated_at`) VALUES ('MyLocation', '2019-01-06 08:50:49', '2019-01-06 08:50:49')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Create (0.3ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('b4907ab5e97be2db33f7fe3d5b546f0b', 13, '2019-01-06 08:50:49', '2019-01-06 08:50:49')[0m
+  [1m[35m (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (4.9ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (5.4ms)[0m  [1m[35mSET  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mReading Load (0.5ms)[0m  [1m[34mSELECT  `readings`.* FROM `readings` WHERE `readings`.`reading_id` = 'd82ec917-5cb5-4365-8b1f-83e1ebf6bee1' LIMIT 1[0m
+  [1m[36mReading Load (0.4ms)[0m  [1m[34mSELECT  `readings`.* FROM `readings` WHERE `readings`.`reading_id` = 'd82ec917-5cb5-4365-8b1f-83e1ebf6bee1' LIMIT 1[0m
+  [1m[35m (5.6ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mLocation Create (0.4ms)[0m  [1m[32mINSERT INTO `locations` (`address`, `created_at`, `updated_at`) VALUES ('MyLocation', '2019-01-06 08:50:54', '2019-01-06 08:50:54')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Create (0.3ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('7646a56bebc6f8d45ab854a99a8fa3f5', 14, '2019-01-06 08:50:54', '2019-01-06 08:50:54')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mReading Load (0.4ms)[0m  [1m[34mSELECT  `readings`.* FROM `readings` WHERE `readings`.`reading_id` = '51275399-3582-4ae6-9641-6f1367819e5a' LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mThermostat Load (0.5ms)[0m  [1m[34mSELECT  `thermostats`.* FROM `thermostats` WHERE `thermostats`.`id` = 21 LIMIT 1[0m
+  [1m[36mReading Create (0.4ms)[0m  [1m[32mINSERT INTO `readings` (`reading_id`, `temperature`, `humidity`, `battery_charge`, `thermostat_id`, `created_at`, `updated_at`) VALUES ('51275399-3582-4ae6-9641-6f1367819e5a', 44.0, 8.2, 87.0, 21, '2019-01-06 08:50:54', '2019-01-06 08:50:54')[0m
+  [1m[35m (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mReading Load (0.4ms)[0m  [1m[34mSELECT  `readings`.* FROM `readings` WHERE `readings`.`reading_id` = '51275399-3582-4ae6-9641-6f1367819e5a' LIMIT 1[0m
+  [1m[35m (1.8ms)[0m  [1m[31mROLLBACK[0m

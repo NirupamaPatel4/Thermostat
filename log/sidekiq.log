@@ -1,0 +1,59 @@
+# Logfile created on 2019-01-06 12:27:28 +0530 by logger.rb/56815
+2019-01-06T06:57:31.739Z 94308 TID-ovlcfskqs INFO: Running in ruby 2.4.3p205 (2017-12-14 revision 61247) [x86_64-darwin17]
+2019-01-06T06:57:31.753Z 94308 TID-ovlcfskqs INFO: See LICENSE and the LGPL-3.0 for licensing details.
+2019-01-06T06:57:31.754Z 94308 TID-ovlcfskqs INFO: Upgrade to Sidekiq Pro for more features and support: http://sidekiq.org
+2019-01-06T06:57:31.755Z 94308 TID-ovlcfskqs INFO: Booting Sidekiq 5.2.1 with redis options {:id=>"Sidekiq-server-PID-94308", :url=>nil}
+/Users/niru/.rvm/gems/ruby-2.4.3/gems/bootsnap-1.3.2/lib/bootsnap/load_path_cache/core_ext/kernel_require.rb:32:in `require': Could not load the 'listen' gem. Add `gem 'listen'` to the development group of your Gemfile (LoadError)
+	from /Users/niru/.rvm/gems/ruby-2.4.3/gems/activesupport-5.2.2/lib/active_support/dependencies.rb:291:in `block in require'
+	from /Users/niru/.rvm/gems/ruby-2.4.3/gems/activesupport-5.2.2/lib/active_support/dependencies.rb:257:in `load_dependency'
+	from /Users/niru/.rvm/gems/ruby-2.4.3/gems/activesupport-5.2.2/lib/active_support/dependencies.rb:291:in `require'
+	from /Users/niru/.rvm/gems/ruby-2.4.3/gems/activesupport-5.2.2/lib/active_support/evented_file_update_checker.rb:61:in `block in initialize'
+	from /Users/niru/.rvm/gems/ruby-2.4.3/gems/activesupport-5.2.2/lib/active_support/core_ext/kernel/reporting.rb:15:in `block in silence_warnings'
+	from /Users/niru/.rvm/gems/ruby-2.4.3/gems/activesupport-5.2.2/lib/active_support/core_ext/kernel/reporting.rb:28:in `with_warnings'
+	from /Users/niru/.rvm/gems/ruby-2.4.3/gems/activesupport-5.2.2/lib/active_support/core_ext/kernel/reporting.rb:15:in `silence_warnings'
+	from /Users/niru/.rvm/gems/ruby-2.4.3/gems/activesupport-5.2.2/lib/active_support/evented_file_update_checker.rb:59:in `initialize'
+	from /Users/niru/.rvm/gems/ruby-2.4.3/gems/activesupport-5.2.2/lib/active_support/i18n_railtie.rb:61:in `new'
+	from /Users/niru/.rvm/gems/ruby-2.4.3/gems/activesupport-5.2.2/lib/active_support/i18n_railtie.rb:61:in `initialize_i18n'
+	from /Users/niru/.rvm/gems/ruby-2.4.3/gems/activesupport-5.2.2/lib/active_support/i18n_railtie.rb:19:in `block in <class:Railtie>'
+	from /Users/niru/.rvm/gems/ruby-2.4.3/gems/activesupport-5.2.2/lib/active_support/lazy_load_hooks.rb:69:in `block in execute_hook'
+	from /Users/niru/.rvm/gems/ruby-2.4.3/gems/activesupport-5.2.2/lib/active_support/lazy_load_hooks.rb:62:in `with_execution_control'
+	from /Users/niru/.rvm/gems/ruby-2.4.3/gems/activesupport-5.2.2/lib/active_support/lazy_load_hooks.rb:67:in `execute_hook'
+	from /Users/niru/.rvm/gems/ruby-2.4.3/gems/activesupport-5.2.2/lib/active_support/lazy_load_hooks.rb:52:in `block in run_load_hooks'
+	from /Users/niru/.rvm/gems/ruby-2.4.3/gems/activesupport-5.2.2/lib/active_support/lazy_load_hooks.rb:51:in `each'
+	from /Users/niru/.rvm/gems/ruby-2.4.3/gems/activesupport-5.2.2/lib/active_support/lazy_load_hooks.rb:51:in `run_load_hooks'
+	from /Users/niru/.rvm/gems/ruby-2.4.3/gems/railties-5.2.2/lib/rails/application/finisher.rb:75:in `block in <module:Finisher>'
+	from /Users/niru/.rvm/gems/ruby-2.4.3/gems/railties-5.2.2/lib/rails/initializable.rb:32:in `instance_exec'
+	from /Users/niru/.rvm/gems/ruby-2.4.3/gems/railties-5.2.2/lib/rails/initializable.rb:32:in `run'
+	from /Users/niru/.rvm/gems/ruby-2.4.3/gems/railties-5.2.2/lib/rails/initializable.rb:61:in `block in run_initializers'
+	from /Users/niru/.rvm/rubies/ruby-2.4.3/lib/ruby/2.4.0/tsort.rb:228:in `block in tsort_each'
+	from /Users/niru/.rvm/rubies/ruby-2.4.3/lib/ruby/2.4.0/tsort.rb:350:in `block (2 levels) in each_strongly_connected_component'
+	from /Users/niru/.rvm/rubies/ruby-2.4.3/lib/ruby/2.4.0/tsort.rb:431:in `each_strongly_connected_component_from'
+	from /Users/niru/.rvm/rubies/ruby-2.4.3/lib/ruby/2.4.0/tsort.rb:349:in `block in each_strongly_connected_component'
+	from /Users/niru/.rvm/rubies/ruby-2.4.3/lib/ruby/2.4.0/tsort.rb:347:in `each'
+	from /Users/niru/.rvm/rubies/ruby-2.4.3/lib/ruby/2.4.0/tsort.rb:347:in `call'
+	from /Users/niru/.rvm/rubies/ruby-2.4.3/lib/ruby/2.4.0/tsort.rb:347:in `each_strongly_connected_component'
+	from /Users/niru/.rvm/rubies/ruby-2.4.3/lib/ruby/2.4.0/tsort.rb:226:in `tsort_each'
+	from /Users/niru/.rvm/rubies/ruby-2.4.3/lib/ruby/2.4.0/tsort.rb:205:in `tsort_each'
+	from /Users/niru/.rvm/gems/ruby-2.4.3/gems/railties-5.2.2/lib/rails/initializable.rb:60:in `run_initializers'
+	from /Users/niru/.rvm/gems/ruby-2.4.3/gems/railties-5.2.2/lib/rails/application.rb:361:in `initialize!'
+	from /Users/niru/Projects/thermostat_api/config/environment.rb:5:in `<top (required)>'
+	from /Users/niru/.rvm/gems/ruby-2.4.3/gems/sidekiq-5.2.1/lib/sidekiq/cli.rb:278:in `require'
+	from /Users/niru/.rvm/gems/ruby-2.4.3/gems/sidekiq-5.2.1/lib/sidekiq/cli.rb:278:in `boot_system'
+	from /Users/niru/.rvm/gems/ruby-2.4.3/gems/sidekiq-5.2.1/lib/sidekiq/cli.rb:53:in `run'
+	from /Users/niru/.rvm/gems/ruby-2.4.3/gems/sidekiq-5.2.1/bin/sidekiq:12:in `<top (required)>'
+	from /Users/niru/.rvm/gems/ruby-2.4.3/bin/sidekiq:23:in `load'
+	from /Users/niru/.rvm/gems/ruby-2.4.3/bin/sidekiq:23:in `<main>'
+	from /Users/niru/.rvm/gems/ruby-2.4.3/bin/ruby_executable_hooks:15:in `eval'
+	from /Users/niru/.rvm/gems/ruby-2.4.3/bin/ruby_executable_hooks:15:in `<main>'
+2019-01-06T08:35:39.059Z 9939 TID-ox4d1u05f INFO: Running in ruby 2.4.3p205 (2017-12-14 revision 61247) [x86_64-darwin17]
+2019-01-06T08:35:39.077Z 9939 TID-ox4d1u05f INFO: See LICENSE and the LGPL-3.0 for licensing details.
+2019-01-06T08:35:39.077Z 9939 TID-ox4d1u05f INFO: Upgrade to Sidekiq Pro for more features and support: http://sidekiq.org
+2019-01-06T08:35:39.077Z 9939 TID-ox4d1u05f INFO: Booting Sidekiq 5.2.1 with redis options {:id=>"Sidekiq-server-PID-9939", :url=>nil}
+2019-01-06T08:45:34.354Z 10339 TID-oxuhq3imz INFO: Running in ruby 2.4.3p205 (2017-12-14 revision 61247) [x86_64-darwin17]
+2019-01-06T08:45:34.360Z 10339 TID-oxuhq3imz INFO: See LICENSE and the LGPL-3.0 for licensing details.
+2019-01-06T08:45:34.361Z 10339 TID-oxuhq3imz INFO: Upgrade to Sidekiq Pro for more features and support: http://sidekiq.org
+2019-01-06T08:45:34.361Z 10339 TID-oxuhq3imz INFO: Booting Sidekiq 5.2.1 with redis options {:id=>"Sidekiq-server-PID-10339", :url=>nil}
+2019-01-06T08:50:38.546Z 10412 TID-ouv09vzrw INFO: Running in ruby 2.4.3p205 (2017-12-14 revision 61247) [x86_64-darwin17]
+2019-01-06T08:50:38.562Z 10412 TID-ouv09vzrw INFO: See LICENSE and the LGPL-3.0 for licensing details.
+2019-01-06T08:50:38.563Z 10412 TID-ouv09vzrw INFO: Upgrade to Sidekiq Pro for more features and support: http://sidekiq.org
+2019-01-06T08:50:38.563Z 10412 TID-ouv09vzrw INFO: Booting Sidekiq 5.2.1 with redis options {:id=>"Sidekiq-server-PID-10412", :url=>nil}

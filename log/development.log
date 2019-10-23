@@ -1,0 +1,484 @@
+  [1m[35m (3.4ms)[0m  [1m[35mSET  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  ↳ config/unicorn.rb:57
+Started GET "/api/thermostats/1/stats" for 127.0.0.1 at 2019-01-06 13:46:31 +0530
+  [1m[35m (10.5ms)[0m  [1m[35mSET  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/unicorn:23
+  [1m[35m (2.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/unicorn:23
+Processing by Api::ThermostatsController#stats as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mThermostat Load (0.5ms)[0m  [1m[34mSELECT  `thermostats`.* FROM `thermostats` WHERE `thermostats`.`household_token` = '13baceb6e464d3e7823ebfb3004228c2' LIMIT 1[0m
+  ↳ app/controllers/application_controller.rb:11
+  [1m[36mCACHE Thermostat Load (0.1ms)[0m  [1m[34mSELECT  `thermostats`.* FROM `thermostats` WHERE `thermostats`.`household_token` = '13baceb6e464d3e7823ebfb3004228c2' LIMIT 1[0m  [["household_token", "13baceb6e464d3e7823ebfb3004228c2"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:11
+Completed 200 OK in 99ms (Views: 0.7ms | ActiveRecord: 6.6ms)
+
+
+Started GET "/api/thermostats/1" for 127.0.0.1 at 2019-01-06 13:46:34 +0530
+Processing by Api::ThermostatsController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mThermostat Load (148.7ms)[0m  [1m[34mSELECT  `thermostats`.* FROM `thermostats` WHERE `thermostats`.`id` = 1 LIMIT 1[0m
+  ↳ app/controllers/api/thermostats_controller.rb:7
+  [1m[36mReading Load (27.4ms)[0m  [1m[34mSELECT `readings`.* FROM `readings` WHERE `readings`.`thermostat_id` = 1[0m
+  ↳ app/controllers/api/thermostats_controller.rb:7
+Completed 200 OK in 450ms (Views: 2.0ms | ActiveRecord: 205.4ms)
+
+
+Started GET "/api/readings/f27a7e3e-1920-437f-a64e-f1b538519e6b" for 127.0.0.1 at 2019-01-06 13:46:37 +0530
+Processing by Api::ReadingsController#show as */*
+  Parameters: {"id"=>"f27a7e3e-1920-437f-a64e-f1b538519e6b"}
+  [1m[36mThermostat Load (0.8ms)[0m  [1m[34mSELECT  `thermostats`.* FROM `thermostats` WHERE `thermostats`.`household_token` = '13baceb6e464d3e7823ebfb3004228c2' LIMIT 1[0m
+  ↳ app/controllers/application_controller.rb:11
+  [1m[36mCACHE Thermostat Load (0.0ms)[0m  [1m[34mSELECT  `thermostats`.* FROM `thermostats` WHERE `thermostats`.`household_token` = '13baceb6e464d3e7823ebfb3004228c2' LIMIT 1[0m  [["household_token", "13baceb6e464d3e7823ebfb3004228c2"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:11
+Completed 200 OK in 6ms (Views: 1.8ms | ActiveRecord: 0.8ms)
+
+
+Started POST "/api/readings" for 127.0.0.1 at 2019-01-06 13:46:42 +0530
+Processing by Api::ReadingsController#create as */*
+  Parameters: {"temperature"=>58, "humidity"=>2.2, "reading"=>{"temperature"=>58, "humidity"=>2.2}}
+  [1m[36mThermostat Load (1.3ms)[0m  [1m[34mSELECT  `thermostats`.* FROM `thermostats` WHERE `thermostats`.`household_token` = '13baceb6e464d3e7823ebfb3004228c2' LIMIT 1[0m
+  ↳ app/controllers/application_controller.rb:11
+  [1m[36mCACHE Thermostat Load (0.0ms)[0m  [1m[34mSELECT  `thermostats`.* FROM `thermostats` WHERE `thermostats`.`household_token` = '13baceb6e464d3e7823ebfb3004228c2' LIMIT 1[0m  [["household_token", "13baceb6e464d3e7823ebfb3004228c2"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:11
+Completed 400 Bad Request in 4ms (Views: 0.2ms | ActiveRecord: 1.3ms)
+
+
+  [1m[35m (1.2ms)[0m  [1m[35mSET  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+  [1m[35m (2.7ms)[0m  [1m[35mCREATE DATABASE `thermostat_api_test` DEFAULT CHARACTER SET `utf8`[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+  [1m[35m (0.6ms)[0m  [1m[35mSET  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+  [1m[35m (2.9ms)[0m  [1m[35mCREATE DATABASE `test_thermostat1` DEFAULT CHARACTER SET `utf8`[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+  [1m[35m (1.2ms)[0m  [1m[35mSET  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+  [1m[35m (60.7ms)[0m  [1m[35mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL PRIMARY KEY)[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+  [1m[35m (30.3ms)[0m  [1m[35mCREATE TABLE `ar_internal_metadata` (`key` varchar(255) NOT NULL PRIMARY KEY, `value` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL)[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+  [1m[35m (3.2ms)[0m  [1m[34mSELECT GET_LOCK('4376906584144101105', 0)[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+Migrating to CreateLocations (20181224190531)
+  [1m[35m (38.0ms)[0m  [1m[35mCREATE TABLE `locations` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `address` text, `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL)[0m
+  ↳ db/migrate/20181224190531_create_locations.rb:3
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+  [1m[36mActiveRecord::SchemaMigration Create (0.9ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20181224190531')[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+Migrating to CreateThermostats (20181224190807)
+  [1m[35m (31.4ms)[0m  [1m[35mCREATE TABLE `thermostats` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `household_token` text, `location_id` bigint, `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL,  INDEX `index_thermostats_on_location_id`  (`location_id`), CONSTRAINT `fk_rails_050e604641`
+FOREIGN KEY (`location_id`)
+  REFERENCES `locations` (`id`)
+)[0m
+  ↳ db/migrate/20181224190807_create_thermostats.rb:3
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20181224190807')[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+Migrating to CreateReadings (20181224190808)
+  [1m[35m (26.5ms)[0m  [1m[35mCREATE TABLE `readings` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `reading_id` varchar(255), `number` int, `temperature` float(24), `humidity` float(24), `battery_charge` float(24), `thermostat_id` bigint, `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL,  INDEX `index_readings_on_thermostat_id`  (`thermostat_id`), CONSTRAINT `fk_rails_7c067bcadb`
+FOREIGN KEY (`thermostat_id`)
+  REFERENCES `thermostats` (`id`)
+)[0m
+  ↳ db/migrate/20181224190808_create_readings.rb:3
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20181224190808')[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+Migrating to AddThermostats (20181224190809)
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:4
+  [1m[36mLocation Create (1.1ms)[0m  [1m[32mINSERT INTO `locations` (`address`, `created_at`, `updated_at`) VALUES ('location_1', '2019-01-06 08:35:36', '2019-01-06 08:35:36')[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:4
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:4
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:4
+  [1m[36mLocation Create (1.2ms)[0m  [1m[32mINSERT INTO `locations` (`address`, `created_at`, `updated_at`) VALUES ('location_2', '2019-01-06 08:35:36', '2019-01-06 08:35:36')[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:4
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:4
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:4
+  [1m[36mLocation Create (0.7ms)[0m  [1m[32mINSERT INTO `locations` (`address`, `created_at`, `updated_at`) VALUES ('location_3', '2019-01-06 08:35:36', '2019-01-06 08:35:36')[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:4
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:4
+  [1m[36mLocation Load (0.4ms)[0m  [1m[34mSELECT `locations`.* FROM `locations`[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:7
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[36mThermostat Create (1.3ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('297fd6a9d9a3fff1eb5bf3db4c900e91', 1, '2019-01-06 08:35:36', '2019-01-06 08:35:36')[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[36mThermostat Create (1.1ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('b58d9fff76579129f84aa1daec49a7f0', 1, '2019-01-06 08:35:36', '2019-01-06 08:35:36')[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[36mThermostat Create (0.9ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('2719001ad709a57cb691c62a68b94fd3', 1, '2019-01-06 08:35:36', '2019-01-06 08:35:36')[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[36mThermostat Create (0.3ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('2f5feef62946bcd72086b0e86f3ac4b3', 2, '2019-01-06 08:35:36', '2019-01-06 08:35:36')[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[36mThermostat Create (1.2ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('4a5de5192d39d8bbe71e93f0be02ceb2', 2, '2019-01-06 08:35:36', '2019-01-06 08:35:36')[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[36mThermostat Create (0.4ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('05bad17eb945503849015c4acecbe3fe', 2, '2019-01-06 08:35:36', '2019-01-06 08:35:36')[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[36mThermostat Create (0.3ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('48464bfabbc32fe77f1c535496ff6f6f', 3, '2019-01-06 08:35:36', '2019-01-06 08:35:36')[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[36mThermostat Create (0.4ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('473b25446e892ffec53fe4ad0d42f8b3', 3, '2019-01-06 08:35:36', '2019-01-06 08:35:36')[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[36mThermostat Create (0.8ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('5f28a1b73b4db7066461130e5de0bbcf', 3, '2019-01-06 08:35:36', '2019-01-06 08:35:36')[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+  [1m[36mActiveRecord::SchemaMigration Create (0.7ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20181224190809')[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+  [1m[36mActiveRecord::InternalMetadata Load (1.2ms)[0m  [1m[34mSELECT  `ar_internal_metadata`.* FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' LIMIT 1[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+  [1m[36mActiveRecord::InternalMetadata Create (0.9ms)[0m  [1m[32mINSERT INTO `ar_internal_metadata` (`key`, `value`, `created_at`, `updated_at`) VALUES ('environment', 'development', '2019-01-06 08:35:36', '2019-01-06 08:35:36')[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT RELEASE_LOCK('4376906584144101105')[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+  [1m[35m (0.4ms)[0m  [1m[35mSET  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  ↳ config/unicorn.rb:57
+  [1m[35m (5.0ms)[0m  [1m[35mSET  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE DATABASE `thermostat_api_test` DEFAULT CHARACTER SET `utf8`[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+  [1m[35m (0.3ms)[0m  [1m[35mSET  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE DATABASE `test_thermostat1` DEFAULT CHARACTER SET `utf8`[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+  [1m[35m (1.6ms)[0m  [1m[35mSET  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+  [1m[35m (74.2ms)[0m  [1m[35mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL PRIMARY KEY)[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+  [1m[35m (28.8ms)[0m  [1m[35mCREATE TABLE `ar_internal_metadata` (`key` varchar(255) NOT NULL PRIMARY KEY, `value` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL)[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT GET_LOCK('4376906584144101105', 0)[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+Migrating to CreateLocations (20181224190531)
+  [1m[35m (65.3ms)[0m  [1m[35mCREATE TABLE `locations` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `address` text, `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL)[0m
+  ↳ db/migrate/20181224190531_create_locations.rb:3
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20181224190531')[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+  [1m[35m (0.7ms)[0m  [1m[35mCOMMIT[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+Migrating to CreateThermostats (20181224190807)
+  [1m[35m (50.0ms)[0m  [1m[35mCREATE TABLE `thermostats` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `household_token` text, `location_id` bigint, `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL,  INDEX `index_thermostats_on_location_id`  (`location_id`), CONSTRAINT `fk_rails_050e604641`
+FOREIGN KEY (`location_id`)
+  REFERENCES `locations` (`id`)
+)[0m
+  ↳ db/migrate/20181224190807_create_thermostats.rb:3
+  [1m[35m (0.6ms)[0m  [1m[35mBEGIN[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+  [1m[36mActiveRecord::SchemaMigration Create (1.2ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20181224190807')[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+  [1m[35m (5.8ms)[0m  [1m[35mCOMMIT[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+Migrating to CreateReadings (20181224190808)
+  [1m[35m (33.8ms)[0m  [1m[35mCREATE TABLE `readings` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `reading_id` varchar(255), `number` int, `temperature` float(24), `humidity` float(24), `battery_charge` float(24), `thermostat_id` bigint, `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL,  INDEX `index_readings_on_thermostat_id`  (`thermostat_id`), CONSTRAINT `fk_rails_7c067bcadb`
+FOREIGN KEY (`thermostat_id`)
+  REFERENCES `thermostats` (`id`)
+)[0m
+  ↳ db/migrate/20181224190808_create_readings.rb:3
+  [1m[35m (0.6ms)[0m  [1m[35mBEGIN[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+  [1m[36mActiveRecord::SchemaMigration Create (0.5ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20181224190808')[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+Migrating to AddThermostats (20181224190809)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:4
+  [1m[36mLocation Create (0.4ms)[0m  [1m[32mINSERT INTO `locations` (`address`, `created_at`, `updated_at`) VALUES ('location_1', '2019-01-06 08:45:30', '2019-01-06 08:45:30')[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:4
+  [1m[35m (0.9ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:4
+  [1m[35m (0.5ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:4
+  [1m[36mLocation Create (0.7ms)[0m  [1m[32mINSERT INTO `locations` (`address`, `created_at`, `updated_at`) VALUES ('location_2', '2019-01-06 08:45:30', '2019-01-06 08:45:30')[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:4
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:4
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:4
+  [1m[36mLocation Create (0.3ms)[0m  [1m[32mINSERT INTO `locations` (`address`, `created_at`, `updated_at`) VALUES ('location_3', '2019-01-06 08:45:30', '2019-01-06 08:45:30')[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:4
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:4
+  [1m[36mLocation Load (0.4ms)[0m  [1m[34mSELECT `locations`.* FROM `locations`[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:7
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[36mThermostat Create (0.4ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('8a5721b98f801e7c17ba325ba7c4f0e4', 1, '2019-01-06 08:45:31', '2019-01-06 08:45:31')[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[35m (2.1ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[36mThermostat Create (0.5ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('bd7be2cdc8f5c9807276ad6df682789b', 1, '2019-01-06 08:45:31', '2019-01-06 08:45:31')[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[35m (1.8ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[35m (0.6ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[36mThermostat Create (0.4ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('a48991eb8e36226c794c0ef99d30e4fb', 1, '2019-01-06 08:45:31', '2019-01-06 08:45:31')[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[36mThermostat Create (0.3ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('4c83990cb94d1d298c296fd6ac8ce88e', 2, '2019-01-06 08:45:31', '2019-01-06 08:45:31')[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[35m (0.7ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[36mThermostat Create (0.5ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('a6f479617df7eae706898554af7a0d0b', 2, '2019-01-06 08:45:31', '2019-01-06 08:45:31')[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[35m (0.7ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[36mThermostat Create (0.4ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('8232c327eaad1ae1495a999139195d1f', 2, '2019-01-06 08:45:31', '2019-01-06 08:45:31')[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[36mThermostat Create (0.4ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('f95101e0758ca886e93ef448f91870f4', 3, '2019-01-06 08:45:31', '2019-01-06 08:45:31')[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[36mThermostat Create (0.3ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('ee6f5a26baefddbb4908141b3a06ff70', 3, '2019-01-06 08:45:31', '2019-01-06 08:45:31')[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[36mThermostat Create (0.3ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('70f5bd5ed0b301d366e7bb29d05104a7', 3, '2019-01-06 08:45:31', '2019-01-06 08:45:31')[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20181224190809')[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+  [1m[35m (1.0ms)[0m  [1m[35mCOMMIT[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT  `ar_internal_metadata`.* FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' LIMIT 1[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+  [1m[36mActiveRecord::InternalMetadata Create (0.4ms)[0m  [1m[32mINSERT INTO `ar_internal_metadata` (`key`, `value`, `created_at`, `updated_at`) VALUES ('environment', 'development', '2019-01-06 08:45:31', '2019-01-06 08:45:31')[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT RELEASE_LOCK('4376906584144101105')[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+  [1m[35m (4.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+  [1m[35m (0.6ms)[0m  [1m[35mSET  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  ↳ config/unicorn.rb:57
+  [1m[35m (7.0ms)[0m  [1m[35mSET  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE DATABASE `thermostat_api_test` DEFAULT CHARACTER SET `utf8`[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+  [1m[35m (1.3ms)[0m  [1m[35mSET  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE DATABASE `test_thermostat1` DEFAULT CHARACTER SET `utf8`[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+  [1m[35m (2.4ms)[0m  [1m[35mSET  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+  [1m[35m (78.9ms)[0m  [1m[35mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL PRIMARY KEY)[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+  [1m[35m (67.2ms)[0m  [1m[35mCREATE TABLE `ar_internal_metadata` (`key` varchar(255) NOT NULL PRIMARY KEY, `value` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL)[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT GET_LOCK('4376906584144101105', 0)[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+Migrating to CreateLocations (20181224190531)
+  [1m[35m (15.7ms)[0m  [1m[35mCREATE TABLE `locations` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `address` text, `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL)[0m
+  ↳ db/migrate/20181224190531_create_locations.rb:3
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+  [1m[36mActiveRecord::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20181224190531')[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+Migrating to CreateThermostats (20181224190807)
+  [1m[35m (15.4ms)[0m  [1m[35mCREATE TABLE `thermostats` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `household_token` text, `location_id` bigint, `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL,  INDEX `index_thermostats_on_location_id`  (`location_id`), CONSTRAINT `fk_rails_050e604641`
+FOREIGN KEY (`location_id`)
+  REFERENCES `locations` (`id`)
+)[0m
+  ↳ db/migrate/20181224190807_create_thermostats.rb:3
+  [1m[35m (0.5ms)[0m  [1m[35mBEGIN[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+  [1m[36mActiveRecord::SchemaMigration Create (0.5ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20181224190807')[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+Migrating to CreateReadings (20181224190808)
+  [1m[35m (13.6ms)[0m  [1m[35mCREATE TABLE `readings` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `reading_id` varchar(255), `number` int, `temperature` float(24), `humidity` float(24), `battery_charge` float(24), `thermostat_id` bigint, `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL,  INDEX `index_readings_on_thermostat_id`  (`thermostat_id`), CONSTRAINT `fk_rails_7c067bcadb`
+FOREIGN KEY (`thermostat_id`)
+  REFERENCES `thermostats` (`id`)
+)[0m
+  ↳ db/migrate/20181224190808_create_readings.rb:3
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20181224190808')[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+Migrating to AddThermostats (20181224190809)
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:4
+  [1m[36mLocation Create (0.4ms)[0m  [1m[32mINSERT INTO `locations` (`address`, `created_at`, `updated_at`) VALUES ('location_1', '2019-01-06 08:50:35', '2019-01-06 08:50:35')[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:4
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:4
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:4
+  [1m[36mLocation Create (0.3ms)[0m  [1m[32mINSERT INTO `locations` (`address`, `created_at`, `updated_at`) VALUES ('location_2', '2019-01-06 08:50:35', '2019-01-06 08:50:35')[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:4
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:4
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:4
+  [1m[36mLocation Create (0.7ms)[0m  [1m[32mINSERT INTO `locations` (`address`, `created_at`, `updated_at`) VALUES ('location_3', '2019-01-06 08:50:35', '2019-01-06 08:50:35')[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:4
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:4
+  [1m[36mLocation Load (0.3ms)[0m  [1m[34mSELECT `locations`.* FROM `locations`[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:7
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[36mThermostat Create (0.4ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('1a6203be67cafa10c1a51ae807d32f21', 1, '2019-01-06 08:50:35', '2019-01-06 08:50:35')[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[36mThermostat Create (0.3ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('e8eff9ec481b1ed411ec4db8d7cfcee1', 1, '2019-01-06 08:50:35', '2019-01-06 08:50:35')[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[36mThermostat Create (0.3ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('0655083b1ebf8efbf640cbbfc5d985e0', 1, '2019-01-06 08:50:35', '2019-01-06 08:50:35')[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[36mThermostat Create (0.2ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('381d575c1cdd5a8d06f1d8d7ad613195', 2, '2019-01-06 08:50:35', '2019-01-06 08:50:35')[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[36mThermostat Create (0.3ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('afcea7de87a09bd466167f169745121f', 2, '2019-01-06 08:50:35', '2019-01-06 08:50:35')[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[36mThermostat Create (0.3ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('ef32ec47ee2f023f0203c1eec4022af9', 2, '2019-01-06 08:50:35', '2019-01-06 08:50:35')[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[36mThermostat Create (0.3ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('14c4c4b29d62c81c971a614fe229e9af', 3, '2019-01-06 08:50:35', '2019-01-06 08:50:35')[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[36mThermostat Create (0.3ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('145609dd6aea87bdb68ff7db48e3c5d3', 3, '2019-01-06 08:50:36', '2019-01-06 08:50:36')[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[36mThermostat Create (0.3ms)[0m  [1m[32mINSERT INTO `thermostats` (`household_token`, `location_id`, `created_at`, `updated_at`) VALUES ('5c10a8143a2be9e6e7d158cd17905b52', 3, '2019-01-06 08:50:36', '2019-01-06 08:50:36')[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/migrate/20181224190809_add_thermostats.rb:9
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO `schema_migrations` (`version`) VALUES ('20181224190809')[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT  `ar_internal_metadata`.* FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' LIMIT 1[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+  [1m[36mActiveRecord::InternalMetadata Create (0.3ms)[0m  [1m[32mINSERT INTO `ar_internal_metadata` (`key`, `value`, `created_at`, `updated_at`) VALUES ('environment', 'development', '2019-01-06 08:50:36', '2019-01-06 08:50:36')[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT RELEASE_LOCK('4376906584144101105')[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  ↳ /Users/niru/.rvm/gems/ruby-2.4.3/bin/rake:23
+  [1m[35m (0.4ms)[0m  [1m[35mSET  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  ↳ config/unicorn.rb:57
